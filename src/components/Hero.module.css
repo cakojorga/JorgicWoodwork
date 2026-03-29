@@ -1,0 +1,138 @@
+.hero {
+  min-height: 89.7vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 px;
+  position: relative;
+  background-image: url('./assets/pexels-fwstudio-33348-129722.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.heroContent {
+  position: relative;
+  max-width: 700px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+
+.heroTitle {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: white;
+  text-align: left;
+}
+
+.heroSubtitle {
+  font-size: 1.1rem;
+  color: #cbd5f5;
+  line-height: 1.6;
+  max-width: 600px;
+  text-align: left;
+}
+
+.btnContainer {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.primaryButton {
+  padding: 14px 28px;
+  border-radius: 8px;
+  border: none;
+  background: #ff6347;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.primaryButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(255, 99, 71, 0.35);
+}
+
+.secondaryButton {
+  padding: 14px 28px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  color: white;
+  cursor: pointer;
+}
+
+.secondaryButton:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.stats {
+  display: flex;
+  gap: 40px;
+  margin-top: 30px;
+}
+
+.stats h3 {
+  color: white;
+  font-size: 2rem;
+}
+
+.stats p {
+  color: #cbd5f5;
+  font-size: 0.9rem;
+}
+
+
+@media (max-width: 1024px) {
+  .hero {
+    padding: 0 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    justify-content: center;
+    padding: 0 24px;
+    text-align: center;
+  }
+
+  .heroContent {
+    align-items: center;
+  }
+
+  .heroTitle {
+    font-size: 2.5rem;
+    text-align: center;
+  }
+
+  .heroSubtitle {
+    text-align: center;
+  }
+
+  .btnContainer {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .stats {
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroTitle {
+    font-size: 2rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1rem;
+  }
+}

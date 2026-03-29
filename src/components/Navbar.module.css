@@ -1,0 +1,132 @@
+.navbar {
+  display: flex;
+  justify-content: center;
+  padding: 14px 120px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: transparent;
+  transition: background-color 0.5s ease, padding 0.3s ease;
+}
+
+.navbarScrolled {
+  background-color: rgba(11, 23, 54, 0.9); /* dark blue */
+  backdrop-filter: blur(10px); /* optional glass effect */
+  padding: 0.5rem 0; /* shrink navbar height */
+}
+
+.navContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1250px;
+}
+
+.navbarLogo {
+  width: 140px;
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+
+.navbarLogo:hover {
+  transform: scale(1.05);
+}
+
+.navbarLogo:active {
+  transform: scale(0.95);
+}
+
+.navbarLogo::after {
+  transform: scale(0.9);
+}
+
+.navbarLinks {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  font-size: 0.95rem;
+}
+
+.navbarLinks a {
+  position: relative;
+  color: #e5e7eb;
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  transition: color 0.25s ease;
+}
+
+.navbarLinks a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  height: 2px;
+  width: 0%;
+  background: #ff6347;
+  transition: width 0.25s ease;
+}
+
+.navbarLinks a:hover {
+  color: white;
+}
+
+.navbarLinks a:hover::after {
+  width: 100%;
+}
+
+.dropdownContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  position: absolute;
+  top: 130%;
+  left: -10px;
+
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(16px);
+
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 10px;
+
+  padding: 20px 24px;
+  min-width: 180px;
+
+  box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+}
+
+.dropdown li {
+  list-style: none;
+}
+
+.dropdown li a {
+  color: #e5e7eb;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+.dropdown li a:hover {
+  color: #ff6347;
+}
+
+.scrolled {
+  
+}
+
+.scrolledNav {
+  
+  background: rgba(2, 8, 23, 0.65);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: background 0.3s ease, backdrop-filter 0.3s ease;
+}
