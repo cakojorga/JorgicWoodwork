@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -L -o \"C:/Users/bekek/Desktop/Boring Company/Webs/JorgicWoodwork/src/assets/kitchen.jpg\" \"https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=800\")"
+    ]
+  }
+}

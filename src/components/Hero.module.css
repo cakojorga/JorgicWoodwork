@@ -2,8 +2,8 @@
   min-height: 89.7vh;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  padding: 0 px;
+  justify-content: center;
+  padding: 0 60px;
   position: relative;
   background-image: url('./assets/pexels-fwstudio-33348-129722.jpg');
   background-size: cover;
@@ -12,17 +12,15 @@
 
 .heroContent {
   position: relative;
-  max-width: 700px;
-
+  max-width: 800px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 20px;
 }
 
-
 .heroTitle {
-  font-size: 3rem;
+  font-size: 4rem;
   font-weight: 700;
   line-height: 1.15;
   color: white;
@@ -34,7 +32,7 @@
   color: #cbd5f5;
   line-height: 1.6;
   max-width: 600px;
-  text-align: left;
+  text-align: center;
 }
 
 .btnContainer {
@@ -75,7 +73,6 @@
 .stats {
   display: flex;
   gap: 40px;
-  margin-top: 30px;
 }
 
 .stats h3 {
@@ -86,6 +83,33 @@
 .stats p {
   color: #cbd5f5;
   font-size: 0.9rem;
+}
+
+.scrollIndicator {
+  color: #ff6347;
+  font-size: 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 90px;
+  margin-top: 30px;
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+
+.statsSpan {
+  color: #cbd5f5;
+  font-size: 1rem;
+}
+
+.divider {
+  width: 2px;
+  height: 40px;
+  background-color: rgba(255, 99, 71, 0.2);
 }
 
 

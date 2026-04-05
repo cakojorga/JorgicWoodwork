@@ -9,9 +9,10 @@ export default function ContactForm() {
   const [result, setResult] = useState("");
 
   const onSubmit = async (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    formData.append("access_key", "45dce0e1-7970-4337-aacb-31116e99c2ab");
+    if (FormData(event.target) != null) {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      formData.append("access_key", "45dce0e1-7970-4337-aacb-31116e99c2ab");
 
     const response = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
@@ -19,7 +20,11 @@ export default function ContactForm() {
     });
 
     const data = await response.json();
-    setResult(data.success ? "Success!" : "Error");
+    setResult(data.success ? "Hvala vam na poruci!" : "Neuspješno slanje poruke. Pokušajte ponovo.");
+   } else {
+    event.preventDefault();
+    setResult("Neuspješno slanje poruke. Pokušajte ponovo.");
+  }
   };
 
   return (
