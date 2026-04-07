@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column; 
   min-width: 600px;
+
 }
 
 .formGroup {
@@ -11,6 +12,7 @@
   align-items: center;
   margin-bottom: 1.5rem;
   gap: 20px;
+
 }
 
 .formGroup label {
@@ -26,6 +28,7 @@
   padding: 0.5rem;
   border-radius: 8px;
   flex: 1;
+  font-family: "Poppins", sans-serif;
 }
 
 .contactForm textarea {
@@ -48,4 +51,11 @@
 
 .contactForm .submitButton:hover {
   background-color: #ff4500;
+}
+
+.result {
+  margin-top: 1rem;
+  font-size: 1.25rem;
+  color: #e5e7eb;
+  font-family: "Poppins", sans-serif;
 }
