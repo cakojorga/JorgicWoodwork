@@ -1,7 +1,19 @@
+import { nav } from "framer-motion/client";
 import classes from "./Hero.module.css";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Hero() {
+
+  const navigate =  useNavigate()
+  const scrollToContact = () => {
+    const contactSection = document.getElementById("kontakt");
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth" });
+    }
+  }
+
   return (
     <>
       <div className={classes.overlay} aria-hidden="true"></div>
@@ -33,9 +45,11 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
           >
-            <button className={classes.primaryButton}>Zatražite ponudu</button>
+            <button className={classes.primaryButton} onClick={scrollToContact}>
+              Zatražite ponudu
+            </button>
 
-            <button className={classes.secondaryButton}>
+            <button className={classes.secondaryButton} onClick={() => {navigate("/galerija")}}>
               Pogledajte galeriju
             </button>
           </motion.div>
@@ -47,15 +61,33 @@ export default function Hero() {
             transition={{ delay: 0.6, duration: 0.8 }}
           >
             <motion.p className={classes.stats}>
-              <span>30+</span> <span className={classes.statsSpan}>Godina Iskustva</span>
+              <div className={classes.statsHighlight}>
+                <span className={classes.statsNumber}>30</span>
+                <span className={classes.statsPlus}>+</span>
+              </div>
+              <span className={classes.statsSpan}>Godina Iskustva</span>
             </motion.p>
-            <motion.div className={classes.divider} aria-hidden="true"></motion.div>
+            <motion.div
+              className={classes.divider}
+              aria-hidden="true"
+            ></motion.div>
             <motion.p className={classes.stats}>
-              <span>1000+</span> <span className={classes.statsSpan}>Projekata</span>
+              <div className={classes.statsHighlight}>
+                <span className={classes.statsNumber}>1000</span>
+                <span className={classes.statsPlus}>+</span>
+              </div>
+              <span className={classes.statsSpan}>Projekata</span>
             </motion.p>
-            <motion.div className={classes.divider} aria-hidden="true"></motion.div>
+            <motion.div
+              className={classes.divider}
+              aria-hidden="true"
+            ></motion.div>
             <motion.p className={classes.stats}>
-              <span>500+</span> <span className={classes.statsSpan}>Zadovoljnih Klijenata</span>
+              <div className={classes.statsHighlight}>
+                <span className={classes.statsNumber}>500</span>
+                <span className={classes.statsPlus}>+</span>
+              </div>
+              <span className={classes.statsSpan}>Zadovoljnih Klijenata</span>
             </motion.p>
           </motion.div>
         </div>

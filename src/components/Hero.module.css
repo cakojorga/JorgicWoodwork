@@ -106,6 +106,24 @@
   font-size: 1rem;
 }
 
+.statsHighlight {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.statsNumber {
+  font-size: 2rem;
+  color: white;
+  font-weight: 700;
+}
+
+.statsPlus {
+  font-size: 1.5rem;
+  color: #ff6347;
+  font-weight: 700;
+}
+
 .divider {
   width: 2px;
   height: 40px;
