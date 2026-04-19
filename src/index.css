@@ -20,6 +20,13 @@ body {
   /* 5. Improve text rendering */
   -webkit-font-smoothing: antialiased;
 }
+:root {
+  font-family: Inter, sans-serif;
+  font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
+}
+@supports (font-variation-settings: normal) {
+  :root { font-family: InterVariable, sans-serif; }
+}
 /* 6. Improve media defaults */
 img, picture, video, canvas, svg {
   display: block;

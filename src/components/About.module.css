@@ -32,6 +32,7 @@
   line-height: 1.8;
   color: #e5e7eb;
   margin: 0;
+  
 }
 
 .line {
@@ -56,11 +57,9 @@
 
 .text {
   min-width: 0;
-  margin-bottom: 2.5rem;
 }
 
 .subTitle {
-  font-family: "Poppins", sans-serif;
   font-size: 1.25rem;
   margin: 0 0 1rem;
   color: #ffffff;
@@ -72,38 +71,38 @@
 .highlights {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
   list-style: none;
   padding: 0;
   margin: 0;
+  margin-top: 2rem;
 }
 
-.list li,
-.highlights li {
-  background-color: #0A1122;
-  min-height: 500px;
-  height: 100%;
-}
+
 
 .highlights strong {
   color: #ffffff;
 }
 .note {
   font-family: "Inter", sans-serif;
-  font-size: 1rem;
+  font-size: 1.1rem;
   line-height: 1.7;
   color: rgba(229, 231, 235, 0.9);
   background: rgba(15, 23, 42, 0.6);
   backdrop-filter: blur(12px);
-
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 14px;
-
   padding: 1.1rem 1.2rem;
-
   box-shadow:
     0 4px 20px rgba(0,0,0,0.35),
     inset 0 1px 0 rgba(255,255,255,0.05);
+  margin-top: 2rem;
+  text-align: center;
+  transition: background 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.note:hover {
+  border-color: rgba(255, 99, 71, 0.8);
+  color: #ffffff;
 }
 
 .itemBoard {
@@ -139,6 +138,76 @@
 
 .itemBoard .link:hover {
   background: rgba(255, 99, 71, 0.8);
+  border-color: rgba(255, 99, 71, 0.8);
+  color: #ffffff;
+}
+
+.whyUs {
+  margin-top: 2.25rem;
+  min-width: 1200px;
+}
+
+.whyUs li {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 3rem 2rem;
+  box-shadow:
+    0 4px 20px rgba(0,0,0,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-decoration: none;
+  font-size: 1.25rem;
+  text-align: center;
+  color: #e5e7eb;
+  transition: background 0.3s, border-color 0.3s, color 0.3s;
+  min-height: 230px;
+}
+
+.highlights
+
+.highlightItemLeft {
+  border-radius: 14px 0px 0 14px;
+}
+
+.highlightItemRight {
+  border-radius: 0px 14px 14px 0;
+}
+
+.highlightItemCenter {
+  border-radius: 0;
+  background: #07122A !important;
+}
+
+.highlightText {
+  font-family: "Inter", sans-serif;
+  line-height: 1.6;
+  color: #e5e7eb;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 200;
+  font-size: 1.1rem;
+}
+
+.highlightTextHeader {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.25rem;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.highlightIcon {
+  font-size: 3.5rem;
+  color: #ff6347;
+  margin-top: 1rem;
+}
+
+.whyUs li:hover {
   border-color: rgba(255, 99, 71, 0.8);
   color: #ffffff;
 }

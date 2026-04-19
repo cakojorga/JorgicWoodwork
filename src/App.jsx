@@ -2,6 +2,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
 import RootLayout from "./pages/RootLayout";
+import Privatnost from "./pages/Privatnost";
+import UsloviKoriscenja from "./pages/UsloviKoriscenja";
 
 const router = createBrowserRouter([
   {
@@ -11,6 +13,14 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/privatnost",
+        element: <Privatnost />,
+      },
+      {
+        path: "/uslovi-koriscenja",
+        element: <UsloviKoriscenja />,
       },
     ],
   },

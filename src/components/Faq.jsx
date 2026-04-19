@@ -1,4 +1,5 @@
 import classes from "./Faq.module.css";
+import { motion } from "framer-motion";
 
 export default function Faq() { 
   return (
@@ -10,30 +11,30 @@ export default function Faq() {
           </h2>
           
           <div className={classes.faqGrid}>
-            <div className={classes.faqItem}>
+            <motion.div initial={{ opacity: 0, x: -50 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, ease: "easeInOut" }} viewport={{ once: true , amount: 0.5 }} className={classes.faqItem}>
               <h3 className={classes.question}>
                 Koje vrste materijala koristite?
               </h3>
               <p className={classes.answer}>Drvo</p>
-            </div>
-            <div className={classes.faqItem}>
+            </motion.div>
+            <motion.div initial={{ opacity: 0, x: 50 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, ease: "easeInOut" }} viewport={{ once: true , amount: 0.5 }} className={classes.faqItem}>
               <h3 className={classes.question}>
                 Koje vrste materijala koristite?
               </h3>
               <p className={classes.answer}>Drvo</p>
-            </div>
-            <div className={classes.faqItem}>
+            </motion.div>
+            <motion.div initial={{ opacity: 0, x: -40 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, ease: "easeInOut" }} viewport={{ once: true , amount: 0.5 }} className={classes.faqItem}>
               <h3 className={classes.question}>
                 Koje vrste materijala koristite?
               </h3>
               <p className={classes.answer}>Drvo</p>
-            </div>
-            <div className={classes.faqItem}>
+            </motion.div>
+            <motion.div initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, ease: "easeInOut" }} viewport={{ once: true , amount: 0.5 }} className={classes.faqItem}>
               <h3 className={classes.question}>
                 Koje vrste materijala koristite?
               </h3>
               <p className={classes.answer}>Drvo</p>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

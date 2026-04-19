@@ -1,5 +1,5 @@
 .footer {
-  background: linear-gradient(135deg, #0f172a, #1e293b);
+  background: #1f2937;
   color: #e5e7eb;
   padding: 60px 20px 20px;
 }
@@ -35,7 +35,8 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: rgba(255,255,255,0.1);
+  color: white;
+  background: #374151;
   transition: 0.3s;
 }
 
@@ -46,19 +47,34 @@
 
 .footerLinks h4,
 .footerNewsletter h4 {
+  color: #ff6347;
   margin-bottom: 15px;
 }
 
-.footerLinks a {
+.footerLinks button,a {
   display: block;
   margin-bottom: 8px;
   color: #cbd5f5;
   text-decoration: none;
+  background-color: transparent;
+  border: none;
+  padding: 0;
   transition: 0.3s;
+  cursor: pointer;
 }
 
-.footerLinks a:hover {
+.footerLinks a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footerLinks button:hover,a:hover {
   color: white;
+}
+
+.contactIcon {
+  color: #ff6347;
 }
 
 .footerNewsletter p {
@@ -98,4 +114,24 @@
   margin-top: 40px;
   opacity: 0.6;
   font-size: 0.9rem;
+}
+
+.footerLogo {
+  max-width: 156px;
+  font-weight: bold;
+  color: #3b82f6;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.footerLogo:hover {
+  transform: scale(1.05);
+}
+
+.footerLogo:active {
+  transform: scale(0.95);
+}
+
+.footerLogo::after {
+  transform: scale(0.9);
 }

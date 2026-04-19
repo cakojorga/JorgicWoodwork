@@ -47,24 +47,57 @@ export default function Navbar() {
   }
 
   return (
-    <nav
-      className={`${scrolled ? classes.scrolledNav : ""} ${classes.navbar}`}
-      
-    >
+    <nav className={`${scrolled ? classes.scrolledNav : ""} ${classes.navbar}`}>
       <div className={classes.navContainer}>
         <img
           src="/logonav.webp"
           alt="Logo"
           className={`${scrolled ? classes.scrolled : ""} ${classes.navbarLogo}`}
-          onClick={() => {
-            Navigate("/");
+          onClick={(e) => {
+            e.preventDefault();
+            const target = document.getElementById("home");
+            if (target) {
+              target.scrollIntoView({ behavior: "smooth" });
+            } else {
+              Navigate("/");
+            }
           }}
         />
 
         <ul className={classes.navbarLinks}>
-          <NavLink>Početna</NavLink>
-          <NavLink>Kontakt</NavLink>
-          <NavLink>
+          <NavLink
+            to="/"
+            onClick={(e) => {
+              e.preventDefault();
+              const target = document.getElementById("home");
+              if (target) {
+                target.scrollIntoView({ behavior: "smooth" });
+              } else {
+                Navigate("/");
+              }
+            }}
+          >
+            Početna
+          </NavLink>
+          <NavLink
+            to="/#kontakt"
+            onClick={(e) => {
+              e.preventDefault();
+              const target = document.getElementById("kontakt");
+              if (target) {
+                target.scrollIntoView({ behavior: "smooth" });
+              } else {
+                Navigate("/#kontakt");
+              }
+            }}
+          >
+            Kontakt
+          </NavLink>
+          <NavLink
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+          >
             <motion.div
               onClick={handleHover}
               className={classes.dropdownContainer}

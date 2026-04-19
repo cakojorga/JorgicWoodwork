@@ -17,7 +17,7 @@ export default function Hero() {
   return (
     <>
       <div className={classes.overlay} aria-hidden="true"></div>
-      <section className={classes.hero}>
+      <section className={classes.hero} id="home" aria-labelledby="home-title">
         <div className={classes.heroContent}>
           <motion.h1
             className={classes.heroTitle}
