@@ -1,7 +1,7 @@
 .about {
   background-color: #020817; /* tamna pozadina */
   color: #e5e7eb; /* svijetli tekst */
-  padding: 6rem 0; /* prostor odozgo i odozdo */
+  padding: 80px 0; /* prostor odozgo i odozdo */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,7 +32,7 @@
   line-height: 1.8;
   color: #e5e7eb;
   margin: 0;
-  
+  text-align: center;
 }
 
 .line {
@@ -50,8 +50,8 @@
 
 .aboutContent {
   display: block;
-  max-width: 1200px;
-  width: 900px;
+  max-width: 900px;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -70,14 +70,12 @@
 
 .highlights {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
   list-style: none;
   padding: 0;
   margin: 0;
   margin-top: 2rem;
 }
-
-
 
 .highlights strong {
   color: #ffffff;
@@ -93,11 +91,14 @@
   border-radius: 14px;
   padding: 1.1rem 1.2rem;
   box-shadow:
-    0 4px 20px rgba(0,0,0,0.35),
-    inset 0 1px 0 rgba(255,255,255,0.05);
+    0 4px 20px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
   margin-top: 2rem;
   text-align: center;
-  transition: background 0.3s, border-color 0.3s, color 0.3s;
+  transition:
+    background 0.3s,
+    border-color 0.3s,
+    color 0.3s;
 }
 
 .note:hover {
@@ -108,10 +109,10 @@
 .itemBoard {
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1.5rem;
   padding: 0;
-  margin: 2rem 0; 
+  margin: 2rem 0;
 }
 
 .itemBoard .link {
@@ -121,8 +122,8 @@
   border-radius: 14px;
   padding: 3rem 1.5rem;
   box-shadow:
-    0 4px 20px rgba(0,0,0,0.35),
-    inset 0 1px 0 rgba(255,255,255,0.05);
+    0 4px 20px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -132,7 +133,10 @@
   font-size: 1.25rem;
   text-align: center;
   color: #e5e7eb;
-  transition: background 0.3s, border-color 0.3s, color 0.3s;
+  transition:
+    background 0.3s,
+    border-color 0.3s,
+    color 0.3s;
   min-height: 230px;
 }
 
@@ -144,7 +148,8 @@
 
 .whyUs {
   margin-top: 2.25rem;
-  min-width: 1200px;
+  max-width: 1200px;
+  width: 100%;
 }
 
 .whyUs li {
@@ -153,8 +158,8 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   padding: 3rem 2rem;
   box-shadow:
-    0 4px 20px rgba(0,0,0,0.35),
-    inset 0 1px 0 rgba(255,255,255,0.05);
+    0 4px 20px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -163,13 +168,14 @@
   font-size: 1.25rem;
   text-align: center;
   color: #e5e7eb;
-  transition: background 0.3s, border-color 0.3s, color 0.3s;
+  transition:
+    background 0.3s,
+    border-color 0.3s,
+    color 0.3s;
   min-height: 230px;
 }
 
-.highlights
-
-.highlightItemLeft {
+.highlights .highlightItemLeft {
   border-radius: 14px 0px 0 14px;
 }
 
@@ -179,7 +185,7 @@
 
 .highlightItemCenter {
   border-radius: 0;
-  background: #07122A !important;
+  background: #07122a !important;
 }
 
 .highlightText {
@@ -192,6 +198,7 @@
   align-items: center;
   font-weight: 200;
   font-size: 1.1rem;
+  transition: all 0.3s ease;
 }
 
 .highlightTextHeader {
@@ -217,7 +224,41 @@
   color: #ff6347;
 }
 
+@media (max-width: 900px) {
 
+  .about {
+    padding: 20px;
+  }
+
+  .highlights {
+    grid-template-columns: repeat(1, 1fr);
+    max-width: 600px;
+    margin: auto;
+    gap: 15px;
+    border-radius: 14px;
+    
+  }
+
+  .highlightItemLeft {
+    border-radius: 14px !important;
+  }
+
+  .highlightItemCenter {
+    border-radius: 14px !important;
+  }
+
+  .highlightItemRight {
+    border-radius: 14px;
+  }
+
+  .highlightText {
+    font-size: 1rem;
+  }
+
+  .note {
+    font-size: 1rem;
+  }
+}
 
 @media (max-width: 768px) {
   .title {
@@ -228,7 +269,16 @@
     font-size: 1rem;
   }
 
-  .aboutContent {
-    max-width: 100%;
+  .itemBoard .link {
+    padding: 2rem 1rem;
+    font-size: 1.25rem;
+  }
+
+  .icon {
+    font-size: 3rem;
+  }
+
+  .itemBoard {
+    grid-template-columns: repeat 1fr;
   }
 }

@@ -2,6 +2,10 @@
   background: #1f2937;
   color: #e5e7eb;
   padding: 60px 20px 20px;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  margin-top: auto;
 }
 
 .footerContainer {
@@ -51,7 +55,7 @@
   margin-bottom: 15px;
 }
 
-.footerLinks button,a {
+.footerLinks button,.footerLinks a {
   display: block;
   margin-bottom: 8px;
   color: #cbd5f5;
@@ -134,4 +138,33 @@
 
 .footerLogo::after {
   transform: scale(0.9);
+}
+
+@media (max-width: 1050px) {
+  .footerContainer {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (max-width: 900px) {
+  .footerContainer {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .footerBrand {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .socials {
+    justify-content: center;
+  }
+
+  .footerLinks {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }

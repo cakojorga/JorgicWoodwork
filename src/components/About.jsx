@@ -11,8 +11,13 @@ import { motion } from "framer-motion";
 import { FiTool } from "react-icons/fi";
 import { MdDesignServices } from "react-icons/md";
 import { MdOutlineWorkspacePremium } from "react-icons/md";
+import { FaChild } from "react-icons/fa6";
+import { galleryData } from "../utility/galleryData";
+
 
 export default function About() {
+
+
   return (
     <section
       className={classes.about}
@@ -20,7 +25,7 @@ export default function About() {
       aria-labelledby="o-nama-title"
     >
       <div className="container">
-        <div className={classes.header}>
+        <div className={classes.header} id="o-nama-header">
           <h2 id="o-nama-title" className={classes.title}>
             O nama
           </h2>
@@ -34,6 +39,10 @@ export default function About() {
         <div className={classes.aboutContent}>
           <div className={classes.text}>
             <h3 className={classes.subTitle}>Naše Usluge</h3>
+            <p className={classes.lead}>
+              Klikni na kategoriju da vidiš primjere naših radova i pronađeš
+              inspiraciju za svoj projekat.
+            </p>
             <motion.ul
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -46,7 +55,10 @@ export default function About() {
                 viewport={{ once: true, amount: 0.5 }}
                 transition={{ duration: 0.5 }}
               >
-                <Link to="/galerija" className={classes.link}>
+                <Link
+                  to={`/Galerija/${galleryData[0].title}`}
+                  className={classes.link}
+                >
                   Kuhinje
                   <span className={classes.icon}>
                     <MdOutlineKitchen />
@@ -59,7 +71,10 @@ export default function About() {
                 viewport={{ once: true, amount: 0.5 }}
                 transition={{ duration: 0.5 }}
               >
-                <Link to="/galerija" className={classes.link}>
+                <Link
+                  to={`/Galerija/${galleryData[1].title}`}
+                  className={classes.link}
+                >
                   Ormari
                   <span className={classes.icon}>
                     <BiCabinet />
@@ -72,7 +87,10 @@ export default function About() {
                 viewport={{ once: true, amount: 0.5 }}
                 transition={{ duration: 0.5 }}
               >
-                <Link to="/galerija" className={classes.link}>
+                <Link
+                  to={`/Galerija/${galleryData[2].title}`}
+                  className={classes.link}
+                >
                   Vrata
                   <span className={classes.icon}>
                     <MdOutlineDoorBack />
@@ -85,7 +103,10 @@ export default function About() {
                 viewport={{ once: true, amount: 0.5 }}
                 transition={{ duration: 0.5 }}
               >
-                <Link to="/galerija" className={classes.link}>
+                <Link
+                  to={`/Galerija/${galleryData[3].title}`}
+                  className={classes.link}
+                >
                   Stepenice
                   <span className={classes.icon}>
                     <FaStairs />
@@ -98,7 +119,10 @@ export default function About() {
                 viewport={{ once: true, amount: 0.5 }}
                 transition={{ duration: 0.5 }}
               >
-                <Link to="/galerija" className={classes.link}>
+                <Link
+                  to={`/Galerija/${galleryData[4].title}`}
+                  className={classes.link}
+                >
                   Prozori
                   <span className={classes.icon}>
                     <MdOutlineWindow />
@@ -111,8 +135,27 @@ export default function About() {
                 viewport={{ once: true, amount: 0.5 }}
                 transition={{ duration: 0.5 }}
               >
-                <Link to="/galerija" className={classes.link}>
-                  Dječije sobe i kreveti
+                <Link
+                  to={`/Galerija/${galleryData[5].title}`}
+                  className={classes.link}
+                >
+                  Dječije Sobe
+                  <span className={classes.icon}>
+                    <FaChild />
+                  </span>
+                </Link>
+              </motion.li>
+              <motion.li
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.5 }}
+              >
+                <Link
+                  to={`/Galerija/${galleryData[6].title}`}
+                  className={classes.link}
+                >
+                  Kreveti
                   <span className={classes.icon}>
                     <LuBedDouble />
                   </span>
@@ -124,20 +167,10 @@ export default function About() {
                 viewport={{ once: true, amount: 0.5 }}
                 transition={{ duration: 0.5 }}
               >
-                <Link to="/galerija" className={classes.link}>
-                  Ostali stolarski radovi
-                  <span className={classes.icon}>
-                    <MdMiscellaneousServices />
-                  </span>
-                </Link>
-              </motion.li>
-              <motion.li
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.5 }}
-              >
-                <Link to="/galerija" className={classes.link}>
+                <Link
+                  to={`/Galerija/${galleryData[7].title}`}
+                  className={classes.link}
+                >
                   Ostali stolarski radovi
                   <span className={classes.icon}>
                     <MdMiscellaneousServices />
@@ -188,7 +221,9 @@ export default function About() {
               transition={{ duration: 0.5 }}
               className={classes.highlightItemRight}
             >
-              <span className={classes.highlightTextHeader}>Iskustvo 30+ godina</span>
+              <span className={classes.highlightTextHeader}>
+                Iskustvo 30+ godina
+              </span>
               <MdOutlineWorkspacePremium className={classes.highlightIcon} />
               <p className={classes.highlightText}>
                 <span>
@@ -198,7 +233,13 @@ export default function About() {
             </motion.li>
           </ul>
 
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.5 }} transition={{ duration: 0.5 }} className={classes.note}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.5 }}
+            className={classes.note}
+          >
             Radimo po mjeri i dogovoru — od savjetovanja, izmjere i prijedloga
             rješenja, do izrade i montaže.
           </motion.div>

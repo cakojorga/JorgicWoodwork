@@ -6,13 +6,13 @@ import { ScrollRestoration } from "react-router-dom";
 export default function RootLayout() {
   return (
     <>
-      <main>
-        <ScrollRestoration />
-        <Navbar />
+        <main>
+          <ScrollRestoration />
+          <Navbar />
 
-        <Outlet />
-        <Footer />
-      </main>
+          <Outlet />
+          <Footer />
+        </main>
     </>
   );
 }

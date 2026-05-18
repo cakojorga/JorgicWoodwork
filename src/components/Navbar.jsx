@@ -1,13 +1,15 @@
-import { useNavigate, NavLink } from "react-router-dom";
+import { useNavigate, NavLink, useLocation } from "react-router-dom";
 import classes from "./Navbar.module.css";
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { galleryData } from "../utility/galleryData";
+import { HiMenuAlt3, HiX } from "react-icons/hi";
 
 const ArrowIcon = ({ isOpen }) => {
   return (
     <motion.svg
-      width="24"
-      height="24"
+      width="20"
+      height="20"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -24,17 +26,16 @@ const ArrowIcon = ({ isOpen }) => {
 
 export default function Navbar() {
   const [isHovered, setIsHovered] = useState(false);
-  const Navigate = useNavigate();
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  const Navigate = useNavigate();
+
+  const isHomeOrGallery = location.pathname === "/" || location.pathname.startsWith("/Galerija");
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        // start shrinking after 50px
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 50);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -46,57 +47,94 @@ export default function Navbar() {
     setIsHovered((prev) => !prev);
   }
 
+  function closeMobileMenu() {
+    setMobileOpen(false);
+    setIsHovered(false);
+  }
+
   return (
-    <nav className={`${scrolled ? classes.scrolledNav : ""} ${classes.navbar}`}>
+    <nav
+      className={`${
+        isHomeOrGallery && !scrolled ? classes.transparentNav : classes.solidNav
+      } ${scrolled ? classes.scrolledNav : ""}`}
+    >
       <div className={classes.navContainer}>
         <img
           src="/logonav.webp"
           alt="Logo"
-          className={`${scrolled ? classes.scrolled : ""} ${classes.navbarLogo}`}
+          className={classes.navbarLogo}
           onClick={(e) => {
             e.preventDefault();
+
             const target = document.getElementById("home");
+
             if (target) {
               target.scrollIntoView({ behavior: "smooth" });
+              window.scrollTo({ top: 0, behavior: "smooth" });
             } else {
               Navigate("/");
+              window.scrollTo({ top: 0, behavior: "smooth" });
             }
+
+            closeMobileMenu();
           }}
         />
 
-        <ul className={classes.navbarLinks}>
+        <button
+          className={classes.hamburger}
+          onClick={() => setMobileOpen((prev) => !prev)}
+        >
+          {mobileOpen ? <HiX /> : <HiMenuAlt3 />}
+        </button>
+
+        <ul
+          className={`${classes.navbarLinks} ${
+            mobileOpen ? classes.mobileActive : ""
+          }`}
+        >
           <NavLink
             to="/"
             onClick={(e) => {
               e.preventDefault();
+
               const target = document.getElementById("home");
+
               if (target) {
                 target.scrollIntoView({ behavior: "smooth" });
+                window.scrollTo({ top: 0, behavior: "smooth" });
               } else {
                 Navigate("/");
+                window.scrollTo({ top: 0, behavior: "smooth" });
               }
+
+              closeMobileMenu();
             }}
           >
             Početna
           </NavLink>
+
           <NavLink
             to="/#kontakt"
             onClick={(e) => {
               e.preventDefault();
+
               const target = document.getElementById("kontakt");
+
               if (target) {
                 target.scrollIntoView({ behavior: "smooth" });
               } else {
                 Navigate("/#kontakt");
               }
+
+              closeMobileMenu();
             }}
           >
             Kontakt
           </NavLink>
+
           <NavLink
-            onClick={(e) => {
-              e.preventDefault();
-            }}
+            className={classes.dropdownWrapper}
+            onClick={(e) => e.preventDefault()}
           >
             <motion.div
               onClick={handleHover}
@@ -104,6 +142,9 @@ export default function Navbar() {
             >
               Galerija
               <ArrowIcon isOpen={isHovered} />
+            </motion.div>
+
+            <AnimatePresence>
               {isHovered && (
                 <motion.div
                   className={classes.dropdown}
@@ -112,27 +153,19 @@ export default function Navbar() {
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <li>
-                    <NavLink to="/galerija/1">Kuhinje</NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="/galerija/2">Ormani</NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="/galerija/2">Vrata</NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="/galerija/2">Djecije Sobe</NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="/galerija/2">Stepenice</NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="/galerija/2">Prozori</NavLink>
-                  </li>
+                  {galleryData.map((item, index) => (
+                    <li key={index}>
+                      <NavLink
+                        to={`/Galerija/${item.title}`}
+                        onClick={closeMobileMenu}
+                      >
+                        {item.title}
+                      </NavLink>
+                    </li>
+                  ))}
                 </motion.div>
               )}
-            </motion.div>
+            </AnimatePresence>
           </NavLink>
         </ul>
       </div>

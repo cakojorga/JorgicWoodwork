@@ -4,11 +4,14 @@ import Home from "./pages/Home";
 import RootLayout from "./pages/RootLayout";
 import Privatnost from "./pages/Privatnost";
 import UsloviKoriscenja from "./pages/UsloviKoriscenja";
+import Galerija from "./pages/Galerija";
+import ErrorPage from "./pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
@@ -21,6 +24,11 @@ const router = createBrowserRouter([
       {
         path: "/uslovi-koriscenja",
         element: <UsloviKoriscenja />,
+      },
+      {
+        path: "/Galerija/:title",
+        element: <Galerija />,
+       
       },
     ],
   },

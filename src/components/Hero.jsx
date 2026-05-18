@@ -13,6 +13,12 @@ export default function Hero() {
       contactSection.scrollIntoView({ behavior: "smooth" });
     }
   }
+  const scrollToGallery = () => {
+    const gallerySection = document.getElementById("o-nama-header");
+    if (gallerySection) {
+      gallerySection.scrollIntoView({ behavior: "smooth" });
+    }
+  }
 
   return (
     <>
@@ -49,7 +55,7 @@ export default function Hero() {
               Zatražite ponudu
             </button>
 
-            <button className={classes.secondaryButton} onClick={() => {navigate("/galerija")}}>
+            <button className={classes.secondaryButton} onClick={scrollToGallery}>
               Pogledajte galeriju
             </button>
           </motion.div>

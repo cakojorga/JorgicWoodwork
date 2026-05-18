@@ -3,7 +3,8 @@
   padding: 2rem;
   display: flex;
   flex-direction: column;
-  min-width: 600px;
+  max-width: 600px;
+  margin: auto;
 }
 
 .formGroup {
@@ -117,6 +118,7 @@
   user-select: none;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .consentLabel a {
@@ -176,4 +178,9 @@
   .fieldError {
     margin-left: 44px;
   }
+
+  .consentLabel {
+    font-size: 0.7rem;
+  }
 }
+

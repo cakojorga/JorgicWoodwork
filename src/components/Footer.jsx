@@ -27,6 +27,7 @@ export default function Footer() {
     const target = document.getElementById("faq");
     if (target) {
       target.scrollIntoView({ behavior: "smooth" });
+      
     } else {
       navigate("/#faq");
     }
@@ -37,8 +38,10 @@ export default function Footer() {
     const target = document.getElementById("home"); 
     if (target) {
       target.scrollIntoView({ behavior: "smooth" });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
       navigate("/");
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
@@ -93,10 +96,14 @@ export default function Footer() {
         <div className={classes.footerLinks}>
           <h4>Kontakt</h4>
           <a href="https://maps.app.goo.gl/FJtjCJqRa6UcNHvW6" target="_blank">
-            <GrLocation  className={classes.contactIcon} /> Bistrica BB
+            <GrLocation className={classes.contactIcon} /> Bistrica BB
           </a>
           <a href="mailto:info@jorgicwoodwork.com" target="_blank">
-            <MdOutlineMail className={classes.contactIcon}/> info@jorgicwoodwork.com
+            <MdOutlineMail className={classes.contactIcon} />{" "}
+            info@jorgicwoodwork.com
+          </a>
+          <a href="tel:+38765564232" target="_blank">
+            <LuPhone className={classes.contactIcon} /> +387 65 564 232
           </a>
           <a href="tel:+38766531274" target="_blank">
             <LuPhone className={classes.contactIcon} /> +387 66 531 274
