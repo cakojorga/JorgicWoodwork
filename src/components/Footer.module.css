@@ -1,11 +1,9 @@
 .footer {
+  margin-top: auto;
   background: #1f2937;
   color: #e5e7eb;
   padding: 60px 20px 20px;
   width: 100%;
-  left: 0;
-  bottom: 0;
-  margin-top: auto;
 }
 
 .footerContainer {

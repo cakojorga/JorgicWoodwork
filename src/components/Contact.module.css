@@ -12,3 +12,12 @@
   color: #ff6347;
   margin-bottom: 1.5rem;
 }
+
+@media (max-width: 768px) {
+
+
+.title h2{
+    font-size: 1.9rem;
+  }
+
+}

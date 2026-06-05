@@ -6,44 +6,96 @@ import classes from "./Galerija.module.css";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useSwipeable } from "react-swipeable";
+import { getDownloadURL, listAll, ref } from "firebase/storage";
+import { storage } from "../../firebase";
+import CircularProgress from "@mui/material/CircularProgress";
+import { Helmet } from "react-helmet-async";
 
 export default function GalleryPage() {
-
+  const [images, setImages] = useState([]);
   const { title } = useParams();
-  const galleryItem = galleryData.find(item => item.title === title);
+  const galleryItem = galleryData.find((item) => item.title === title);
   const [opened, setOpened] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-  
+  const [loading, setLoading] = useState(true);
+  const currentIndex = galleryItem
+    ? images.findIndex((item) => item === selectedImage)
+    : -1;
+  useEffect(() => {
+    setLoading(true);
+    async function loadImages() {
+      try {
+        const folderRef = ref(storage, galleryItem.folder);
 
+        const result = await listAll(folderRef);
 
-  if (!galleryItem) {
-    return (
-      <div className={classes.containerError}>
-        <h1>Nepostojeći artikal</h1>
-      </div>
-    );
-  }
+        const urls = await Promise.all(
+          result.items.map((item) => getDownloadURL(item)),
+        );
 
-  console.log(selectedImage);
-  console.log(opened);
+        setImages(urls);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    }
 
-  const phoneview = window.innerWidth <= 600;
-  const tabletview = window.innerWidth > 600 && window.innerWidth <= 1024;
-  const currentIndex = galleryItem.itemData.findIndex(
-    (item) => item.img === selectedImage,
-  );
+    loadImages();
+  }, [galleryItem]);
   const goNext = () => {
-    const nextIndex = (currentIndex + 1) % galleryItem.itemData.length;
-    setSelectedImage(galleryItem.itemData[nextIndex].img);
+    if (!selectedImage) return;
+
+    const currentIndex = images.findIndex((item) => item === selectedImage);
+
+    const nextIndex = (currentIndex + 1) % images.length;
+    setSelectedImage(images[nextIndex]);
   };
 
   const goPrev = () => {
-    const prevIndex =
-      (currentIndex - 1 + galleryItem.itemData.length) %
-      galleryItem.itemData.length;
+    if (!selectedImage) return;
 
-    setSelectedImage(galleryItem.itemData[prevIndex].img);
+    const currentIndex = images.findIndex((item) => item === selectedImage);
+
+    const prevIndex = (currentIndex - 1 + images.length) % images.length;
+
+    setSelectedImage(images[prevIndex]);
   };
+
+  const prevIndex = (currentIndex - 1 + images.length) % images.length;
+
+  const nextIndex = (currentIndex + 1) % images.length;
+
+  useEffect(() => {
+    if (!selectedImage) return;
+
+    const nextImg = new Image();
+    nextImg.src = images[nextIndex];
+
+    const prevImg = new Image();
+    prevImg.src = images[prevIndex];
+  }, [selectedImage, images, currentIndex, nextIndex, prevIndex]);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setOpened(false);
+      }
+
+      if (e.key === "ArrowRight") {
+        goNext();
+      }
+
+      if (e.key === "ArrowLeft") {
+        goPrev();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedImage, goNext, goPrev]);
   const handlers = useSwipeable({
     onSwipedLeft: () => goNext(),
     onSwipedRight: () => goPrev(),
@@ -51,112 +103,129 @@ export default function GalleryPage() {
     trackMouse: false,
   });
 
-  useEffect(() => {
-    if (!selectedImage) return;
-
-    const currentIndex = galleryItem.itemData.findIndex(
-      (item) => item.img === selectedImage,
-    );
-
-    const nextIndex = (currentIndex + 1) % galleryItem.itemData.length;
-    const prevIndex =
-      (currentIndex - 1 + galleryItem.itemData.length) %
-      galleryItem.itemData.length;
-
-    const nextImg = new Image();
-    nextImg.src = galleryItem.itemData[nextIndex].img;
-
-    const prevImg = new Image();
-    prevImg.src = galleryItem.itemData[prevIndex].img;
-  }, [selectedImage]);
-
-
-  return (
-    <div className="container">
-      <div className={classes.pageSettings}>
-        {opened && selectedImage && (
-          <div className={classes.modal}>
-            <button
-              className={classes.arrowButton}
-              onClick={() => {
-                const currentIndex = galleryItem.itemData.findIndex(
-                  (item) => item.img === selectedImage,
-                );
-                const prevIndex =
-                  (currentIndex - 1 + galleryItem.itemData.length) %
-                  galleryItem.itemData.length;
-                setSelectedImage(galleryItem.itemData[prevIndex].img);
-              }}
-            >
-              {"<"}
-            </button>
-
-            <div className={classes.modalContent} {...handlers}>
-              <button
-                className={classes.closeButton}
-                onClick={() => setOpened(false)}
-              >
-                X
-              </button>
-              <motion.img
-                key={selectedImage}
-                src={selectedImage}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.2 }}
-                className={classes.modalImage}
-              />
-            </div>
-            <button
-              className={classes.arrowButton}
-              onClick={() => {
-                const currentIndex = galleryItem.itemData.findIndex(
-                  (item) => item.img === selectedImage,
-                );
-                const nextIndex =
-                  (currentIndex + 1) % galleryItem.itemData.length;
-                setSelectedImage(galleryItem.itemData[nextIndex].img);
-              }}
-            >
-              {">"}
-            </button>
-          </div>
-        )}
-        <h1 className={classes.title}>{galleryItem.title}</h1>
-        <div className={classes.line} aria-hidden="true"></div>
-        <p className={classes.description}>{galleryItem.description}</p>
-        <ImageList
-          variant="masonry"
-          cols={phoneview ? 1 : tabletview ? 2 : 3}
-          gap={phoneview ? 8 : 10}
-          className={classes.imageList}
-        >
-          {galleryItem.itemData.map((item) => (
-            <motion.li
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              key={item.img}
-              className={classes.imageItem}
-            >
-              <ImageListItem key={item.img}>
-                <img
-                  srcSet={`${item.img}`}
-                  src={`${item.img}`}
-                  alt={item.title}
-                  loading="lazy"
-                  className={classes.image}
-                  onClick={() => {
-                    setSelectedImage(item.img);
-                    setOpened(true);
-                  }}
-                />
-              </ImageListItem>
-            </motion.li>
-          ))}
-        </ImageList>
+  const phoneview = window.matchMedia("(max-width: 600px)").matches;
+  const tabletview = window.matchMedia(
+    "(min-width: 601px) and (max-width: 1024px)",
+  ).matches;
+  if (!galleryItem) {
+    return (
+      <div className={classes.containerError}>
+        <h1>Nepostojeći artikal</h1>
       </div>
-    </div>
+    );
+  }
+  return (
+    <>
+      <Helmet>
+        <title>{galleryItem.title} po mjeri | Jorgić Woodwork</title>
+
+        <link
+          rel="canonical"
+          href={`https://tvojdomen.com/galerija/${title}`}
+        />
+
+        <meta
+          name="description"
+          content={`${galleryItem.description} - Jorgić Woodwork`}
+        />
+
+        <meta
+          name="keywords"
+          content={`${galleryItem.title}, namještaj po mjeri, stolarija, Jorgić Woodwork`}
+        />
+
+        <meta
+          property="og:title"
+          content={`${galleryItem.title} | Jorgić Woodwork`}
+        />
+
+        <meta property="og:description" content={galleryItem.description} />
+
+        <meta property="og:type" content="website" />
+      </Helmet>
+
+      <div className="container">
+        <div className={classes.pageSettings}>
+          {opened && selectedImage && (
+            <div className={classes.modal}>
+              <button
+                className={classes.arrowButton}
+                onClick={() => {
+                  const currentIndex = images.findIndex(
+                    (item) => item === selectedImage,
+                  );
+                  const prevIndex =
+                    (currentIndex - 1 + images.length) % images.length;
+                  setSelectedImage(images[prevIndex]);
+                }}
+              >
+                {"<"}
+              </button>
+
+              <div className={classes.modalContent} {...handlers}>
+                <button
+                  className={classes.closeButton}
+                  onClick={() => setOpened(false)}
+                >
+                  X
+                </button>
+                <motion.img
+                  key={selectedImage}
+                  src={selectedImage}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.2 }}
+                  className={classes.modalImage}
+                />
+              </div>
+              <button
+                className={classes.arrowButton}
+                onClick={() => {
+                  const currentIndex = images.findIndex(
+                    (item) => item === selectedImage,
+                  );
+                  const nextIndex = (currentIndex + 1) % images.length;
+                  setSelectedImage(images[nextIndex]);
+                }}
+              >
+                {">"}
+              </button>
+            </div>
+          )}
+          <h1 className={classes.title}>{galleryItem.title}</h1>
+          <div className={classes.line} aria-hidden="true"></div>
+          <p className={classes.description}>{galleryItem.description}</p>
+          <div className={classes.galleryContainer}>
+            {loading ? (
+              <div className={classes.loadingContainer}>
+                <CircularProgress className={classes.loader} />
+              </div>
+            ) : (
+              <ImageList
+                variant="masonry"
+                cols={phoneview ? 1 : tabletview ? 2 : 3}
+                gap={phoneview ? 8 : 10}
+                className={classes.imageList}
+              >
+                {images.map((url, index) => (
+                  <ImageListItem key={index} className={classes.imageItem}>
+                    <img
+                      src={url}
+                      alt={`${title} ${index + 1}`}
+                      className={classes.image}
+                      onClick={() => {
+                        setSelectedImage(url);
+                        setOpened(true);
+                      }}
+                      loading="lazy"
+                    />
+                  </ImageListItem>
+                ))}
+              </ImageList>
+            )}
+          </div>
+        </div>
+      </div>
+    </>
   );
 }

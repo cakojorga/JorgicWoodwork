@@ -33,17 +33,23 @@ export default function Footer() {
     }
   };
 
-  const pocetnaHandler = (e) => {
-    e.preventDefault();
-    const target = document.getElementById("home"); 
+  async function scrollHomeTop() {
+    const target = document.getElementById("home");
+
     if (target) {
       target.scrollIntoView({ behavior: "smooth" });
       window.scrollTo({ top: 0, behavior: "smooth" });
-    } else {
-      navigate("/");
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
     }
-  };
+
+    await navigate("/");
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    } catch (error) {
+      console.error("Navigation error:", error);
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 
   return (
     <footer className={classes.footer}>
@@ -53,7 +59,7 @@ export default function Footer() {
             src="/logonav.webp"
             alt="Logo"
             className={classes.footerLogo}
-            onClick={pocetnaHandler}
+            onClick={scrollHomeTop}
           />
 
           <div className={classes.socials}>
@@ -83,7 +89,7 @@ export default function Footer() {
 
         <div className={classes.footerLinks}>
           <h4>Brzi Linkovi</h4>
-          <button onClick={pocetnaHandler}>Početna</button>
+          <button onClick={scrollHomeTop}>Početna</button>
           <button onClick={aboutHandler}>O nama</button>
           <button onClick={faqHandler}>FAQ</button>
         </div>

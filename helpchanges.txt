@@ -1,0 +1,4 @@
+promijeniti href u galeriji;
+promijeniti mete u indexu;
+promijeniti i provjeriti linkove na svim stranicama;
+provjeriti lagove vezane za galeriju

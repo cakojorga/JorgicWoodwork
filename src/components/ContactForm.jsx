@@ -197,17 +197,19 @@ export default function ContactForm() {
           className={classes.consentCheckbox}
         />
         <label htmlFor="consent" className={classes.consentLabel}>
-          Slažem se sa&nbsp;
-          <Link
-            to="/uslovi-koriscenja"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Uslovima korišćenja
-          </Link>
-          &nbsp;i&nbsp;
+          <div>
+            Slažem se sa&nbsp;
+            <Link
+              to="/uslovi-koriscenja"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Uslovima korišćenja
+            </Link>
+            &nbsp;i&nbsp;
+          </div>
           <span>
-            <Link to="/privatnost" target="_blank" rel="noopener noreferrer">
+            <Link to="/privatnost" rel="noopener noreferrer">
               Politikom privatnosti
             </Link>
           </span>

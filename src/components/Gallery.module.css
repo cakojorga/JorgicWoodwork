@@ -41,7 +41,9 @@
   transition:
     opacity 0.5s ease,
     transform 0.5s ease;
+    touch-action: pan-y;
 }
+
 
 img.hidden {
   display: none;
@@ -94,12 +96,16 @@ img.block {
 
 .navButtonRight {
   right: 1rem;
+
 }
 
 .navButton:hover {
   background-color: rgba(255, 255, 255, 0.6);
   opacity: 1;
 }
+
+
+
 
 .modalOverlay {
   position: fixed;
@@ -146,4 +152,10 @@ img.block {
   justify-content: center;
   max-width: 85%;
   margin: 10px 0;
+}
+
+@media (max-width: 768px) {
+  .navButton:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+}
 }

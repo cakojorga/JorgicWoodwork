@@ -2,7 +2,10 @@
 *, *::before, *::after {
   box-sizing: border-box;
   font-family: 'Inter', sans-serif;
+  -webkit-tap-highlight-color: transparent;
 }
+
+
 /* 2. Remove default margin */
 *:not(dialog) {
   margin: 0;

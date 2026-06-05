@@ -29,9 +29,10 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
 
-  const isHomeOrGallery = location.pathname === "/" || location.pathname.startsWith("/Galerija");
+  const isHomeOrGallery =
+    location.pathname === "/" || location.pathname.startsWith("/Galerija");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,6 +53,24 @@ export default function Navbar() {
     setIsHovered(false);
   }
 
+  async function scrollHomeTop() {
+    const target = document.getElementById("home");
+
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    await navigate("/");
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    } catch (error) {
+      console.error("Navigation error:", error);
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
   return (
     <nav
       className={`${
@@ -60,22 +79,13 @@ export default function Navbar() {
     >
       <div className={classes.navContainer}>
         <img
-          src="/logonav.webp"
+          src="/logonav.jpg"
+
           alt="Logo"
           className={classes.navbarLogo}
           onClick={(e) => {
             e.preventDefault();
-
-            const target = document.getElementById("home");
-
-            if (target) {
-              target.scrollIntoView({ behavior: "smooth" });
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            } else {
-              Navigate("/");
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }
-
+            scrollHomeTop();
             closeMobileMenu();
           }}
         />
@@ -96,17 +106,7 @@ export default function Navbar() {
             to="/"
             onClick={(e) => {
               e.preventDefault();
-
-              const target = document.getElementById("home");
-
-              if (target) {
-                target.scrollIntoView({ behavior: "smooth" });
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              } else {
-                Navigate("/");
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }
-
+              scrollHomeTop();
               closeMobileMenu();
             }}
           >
@@ -123,7 +123,7 @@ export default function Navbar() {
               if (target) {
                 target.scrollIntoView({ behavior: "smooth" });
               } else {
-                Navigate("/#kontakt");
+                navigate("/#kontakt");
               }
 
               closeMobileMenu();
@@ -132,7 +132,7 @@ export default function Navbar() {
             Kontakt
           </NavLink>
 
-          <NavLink
+          <div
             className={classes.dropdownWrapper}
             onClick={(e) => e.preventDefault()}
           >
@@ -166,7 +166,7 @@ export default function Navbar() {
                 </motion.div>
               )}
             </AnimatePresence>
-          </NavLink>
+          </div>
         </ul>
       </div>
     </nav>

@@ -225,7 +225,6 @@
 }
 
 @media (max-width: 900px) {
-
   .about {
     padding: 20px;
   }
@@ -236,7 +235,6 @@
     margin: auto;
     gap: 15px;
     border-radius: 14px;
-    
   }
 
   .highlightItemLeft {
