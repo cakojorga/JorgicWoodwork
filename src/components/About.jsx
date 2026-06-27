@@ -221,7 +221,7 @@ export default function About() {
               variants={itemVariants}
               className={classes.note}
             >
-              Radimo po mjeri i dogovoru — od savjetovanja, izmjere i prijedloga
+              Radimo po mjeri i dogovoru — od savjetovanja, mjerenja i prijedloga
               rješenja, do izrade i montaže.
             </motion.div>
           </div>

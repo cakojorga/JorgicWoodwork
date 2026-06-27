@@ -17,6 +17,7 @@ export default function ContactForm() {
   const [errors, setErrors] = useState({});
   const [result, setResult] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorCleanup, setErrorCleanup] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -30,8 +31,8 @@ export default function ContactForm() {
     }
   };
 
-  // Pure JS validation — runs even if the attacker removes `required`
-  // attributes from the DOM via DevTools.
+
+
   const validate = (data) => {
     const errs = {};
     const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -94,7 +95,7 @@ export default function ContactForm() {
       payload.append("message", form.message.trim());
       payload.append(
         "consent",
-        "Korisnik je prihvatio Uslove korišćenja i Politiku privatnosti."
+        "Korisnik je prihvatio Uslove korišćenja i Politiku privatnosti.",
       );
       payload.append("access_key", "45dce0e1-7970-4337-aacb-31116e99c2ab");
 
@@ -209,7 +210,7 @@ export default function ContactForm() {
             &nbsp;i&nbsp;
           </div>
           <span>
-            <Link to="/privatnost" rel="noopener noreferrer">
+            <Link to="/privatnost" rel="noopener noreferrer" target="_blank">
               Politikom privatnosti
             </Link>
           </span>

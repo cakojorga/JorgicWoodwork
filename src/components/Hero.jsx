@@ -37,7 +37,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8 }}
           >
-            Izrada kuhinja, ormara, vrata i namještaja po mjeri u Banja Luci i
+            Izrada kuhinja, ormara, vrata i namještaja po mjeri u Banjoj Luci i
             okolini. Spoj tradicionalne izrade i modernog dizajna za dugotrajan
             kvalitet.
           </motion.p>

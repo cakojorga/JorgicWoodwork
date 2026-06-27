@@ -7,9 +7,9 @@ export const galleryData = [
   },
   {
     id: 2,
-    title: "Ormani",
+    title: "Ormari",
     description: "Ručni rad, visok kvalitet, unikatni dizajn.",
-    folder: "Ormani",
+    folder: "Ormari",
   },
   {
     id: 3,
@@ -44,6 +44,7 @@ export const galleryData = [
   {
     id: 8,
     title: "Ostali stolarski radovi",
+    thumbnail: "Ostali stolarski radovi-thumbnails",
     description: "Ručni rad, visok kvalitet, unikatni dizajn.",
     folder: "Ostali stolarski radovi",
   },

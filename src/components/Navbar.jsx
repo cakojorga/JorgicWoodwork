@@ -80,7 +80,6 @@ export default function Navbar() {
       <div className={classes.navContainer}>
         <img
           src="/logonav.jpg"
-
           alt="Logo"
           className={classes.navbarLogo}
           onClick={(e) => {
@@ -111,6 +110,25 @@ export default function Navbar() {
             }}
           >
             Početna
+          </NavLink>
+
+          <NavLink
+            to="/#o-nama"
+            onClick={(e) => {
+              e.preventDefault();
+
+              const target = document.getElementById("o-nama");
+
+              if (target) {
+                target.scrollIntoView({ behavior: "smooth" });
+              } else {
+                navigate("/#o-nama");
+              }
+
+              closeMobileMenu();
+            }}
+          >
+            O nama
           </NavLink>
 
           <NavLink

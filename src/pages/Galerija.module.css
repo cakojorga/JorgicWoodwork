@@ -21,7 +21,11 @@
 }
 
 .loader {
-    color: #fff !important;
+  color: #fff !important;
+}
+
+.title {
+  text-align: center;
 }
 
 .description {
@@ -34,7 +38,12 @@
 .line {
   height: 3px;
   width: 84px;
-  background: linear-gradient(90deg, rgba(246, 143, 59, 0.2), #ff6347, rgba(246, 143, 59, 0.2));
+  background: linear-gradient(
+    90deg,
+    rgba(246, 143, 59, 0.2),
+    #ff6347,
+    rgba(246, 143, 59, 0.2)
+  );
   border-radius: 999px;
   margin-bottom: 20px;
 }
@@ -45,7 +54,7 @@
   width: 100%;
   height: auto;
   max-width: 1200px;
-  padding: 20px!important;
+  padding: 20px !important;
   margin-bottom: 60px;
 }
 
@@ -59,7 +68,6 @@
 
 .image:hover {
   transform: scale(1.015);
-  
 }
 
 .image:active {
@@ -89,6 +97,14 @@
   align-items: center;
   z-index: 1000;
   text-align: end;
+}
+
+.galleryContainer {
+  min-height: 100vh;
+}
+
+.galleryPlaceholder {
+  min-height: 100vh;
 }
 
 .closeButton {
@@ -121,6 +137,43 @@
 .modalImage {
   position: relative;
   z-index: 1001;
+}
+
+.orangeBtn {
+  color: #617fe0;
+  text-decoration: none;
+  transition: all 0.2s;
+  width: 36px;
+  height: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1px;
+  background-color: #fff;
+  font-weight: bold;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.orangeBtn:hover {
+  color: #cbd5f5;
+}
+
+.disabled {
+  width: 36px;
+  height: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  color: rgb(0, 0, 0);
+}
+
+.paginationList {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 50px;
 }
 
 @media (max-width: 900px) {
