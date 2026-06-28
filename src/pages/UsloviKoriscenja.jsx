@@ -22,18 +22,18 @@ export default function UsloviKoriscenja() {
           Dobrodošli na <strong>jorgicwoodwork.com</strong>. Pristupom i
           korišćenjem ove internet stranice prihvatate sljedeće Uslove
           korišćenja. Molimo vas da ih pažljivo pročitate prije nego što
-          nastavite. Ako se ne slažete sa bilo kojim dijelom ovih uslova,
-          molimo vas da ne koristite naš sajt.
+          nastavite. Ako se ne slažete sa bilo kojim dijelom ovih uslova, molimo
+          vas da ne koristite naš sajt.
         </div>
 
         <div className={classes.section}>
           <h2 className={classes.sectionTitle}>1. Opšte odredbe</h2>
           <p className={classes.sectionText}>
             Ovi Uslovi korišćenja regulišu odnos između korisnika sajta i
-            vlasnika — <strong>Jorgić Woodwork</strong>, stolarske radionice
-            sa sjedištem u Bistrici, Banja Luka, Bosna i Hercegovina.
-            Korišćenjem ovog sajta potvrđujete da ste punoljetni ili da
-            imate saglasnost roditelja/staratelja za korišćenje.
+            vlasnika — <strong>Jorgić Woodwork</strong>, stolarske radionice sa
+            sjedištem u Bistrici, Banja Luka, Bosna i Hercegovina. Korišćenjem
+            ovog sajta potvrđujete da ste punoljetni ili da imate saglasnost
+            roditelja/staratelja za korišćenje.
           </p>
         </div>
 
@@ -53,22 +53,22 @@ export default function UsloviKoriscenja() {
           </ul>
           <p className={classes.sectionText}>
             Sajt služi kao informativna platforma — prikaz usluga, galerija
-            radova i kontakt forma za zahtjeve ponude. Konačni ugovor o
-            uslugama sklapa se posebno, u pisanoj ili usmenoj formi, nakon
-            dogovora sa klijentom.
+            radova i kontakt forma za zahtjeve ponude. Konačni ugovor o uslugama
+            sklapa se posebno, u pisanoj ili usmenoj formi, nakon dogovora sa
+            klijentom.
           </p>
         </div>
 
         <div className={classes.section}>
           <h2 className={classes.sectionTitle}>3. Korišćenje sajta</h2>
           <p className={classes.sectionText}>
-            Saglasni ste da ćete sajt koristiti isključivo u zakonite svrhe i
-            na način koji ne narušava prava drugih korisnika. Zabranjeno je:
+            Saglasni ste da ćete sajt koristiti isključivo u zakonite svrhe i na
+            način koji ne narušava prava drugih korisnika. Zabranjeno je:
           </p>
           <ul className={classes.list}>
             <li>
-              Pokušaj neovlašćenog pristupa sistemu, serveru ili podacima
-              drugih korisnika.
+              Pokušaj neovlašćenog pristupa sistemu, serveru ili podacima drugih
+              korisnika.
             </li>
             <li>
               Postavljanje zlonamjernog softvera, virusa ili štetnog koda.
@@ -78,12 +78,12 @@ export default function UsloviKoriscenja() {
               sadržaja putem kontakt forme.
             </li>
             <li>
-              Kopiranje, reprodukcija ili distribucija sadržaja sajta bez
-              pisane saglasnosti vlasnika.
+              Kopiranje, reprodukcija ili distribucija sadržaja sajta bez pisane
+              saglasnosti vlasnika.
             </li>
             <li>
-              Korišćenje automatizovanih alata (botova, skripti) za
-              prikupljanje sadržaja.
+              Korišćenje automatizovanih alata (botova, skripti) za prikupljanje
+              sadržaja.
             </li>
           </ul>
         </div>
@@ -110,8 +110,8 @@ export default function UsloviKoriscenja() {
               .
             </li>
             <li>
-              Dostavljeni podaci neće biti korišćeni u nezakonite ili
-              prevarne svrhe.
+              Dostavljeni podaci neće biti korišćeni u nezakonite ili prevarne
+              svrhe.
             </li>
             <li>
               Jorgić Woodwork zadržava pravo da ne odgovori na poruke koje
@@ -120,9 +120,9 @@ export default function UsloviKoriscenja() {
             </li>
           </ul>
           <p className={classes.sectionText}>
-            Slanje poruke putem kontakt forme <strong>ne predstavlja
-            zaključeni ugovor</strong> o pružanju usluga, već samo zahtjev
-            za ponudu ili informacije.
+            Slanje poruke putem kontakt forme{" "}
+            <strong>ne predstavlja zaključeni ugovor</strong> o pružanju usluga,
+            već samo zahtjev za ponudu ili informacije.
           </p>
         </div>
 
@@ -137,8 +137,8 @@ export default function UsloviKoriscenja() {
             pisane saglasnosti.
           </p>
           <p className={classes.sectionText}>
-            Fotografije izrađenih proizvoda služe kao prikaz naših radova i
-            mogu prikazivati enterijere klijenata uz njihovu saglasnost.
+            Fotografije izrađenih proizvoda služe kao prikaz naših radova i mogu
+            prikazivati enterijere klijenata uz njihovu saglasnost.
           </p>
         </div>
 
@@ -148,21 +148,17 @@ export default function UsloviKoriscenja() {
           </h2>
           <p className={classes.sectionText}>
             Trudimo se da informacije na sajtu budu tačne i ažurirane, ali ne
-            možemo garantovati potpunu tačnost, blagovremenost ili
-            kompletnost podataka. Opisi usluga, fotografije i primjeri radova
-            su informativnog karaktera. <strong>Konačna cijena i specifikacije</strong>{" "}
-            svakog projekta utvrđuju se nakon izmjere i dogovora sa klijentom,
-            u pisanoj ponudi.
+            možemo garantovati potpunu tačnost, blagovremenost ili kompletnost
+            podataka. Opisi usluga, fotografije i primjeri radova su
+            informativnog karaktera.{" "}
+            <strong>Konačna cijena i specifikacije</strong> svakog projekta
+            utvrđuju se nakon izmjere i dogovora sa klijentom, u pisanoj ponudi.
           </p>
         </div>
 
         <div className={classes.section}>
-          <h2 className={classes.sectionTitle}>
-            7. Ograničenje odgovornosti
-          </h2>
-          <p className={classes.sectionText}>
-            Jorgić Woodwork ne odgovara za:
-          </p>
+          <h2 className={classes.sectionTitle}>7. Ograničenje odgovornosti</h2>
+          <p className={classes.sectionText}>Jorgić Woodwork ne odgovara za:</p>
           <ul className={classes.list}>
             <li>
               Posredne ili posljedične štete koje mogu nastati korišćenjem
@@ -173,36 +169,33 @@ export default function UsloviKoriscenja() {
               sile.
             </li>
             <li>
-              Greške u prenosu podataka putem interneta ili trećih usluga
-              (npr. servisa za slanje poruka).
+              Greške u prenosu podataka putem interneta ili trećih usluga (npr.
+              servisa za slanje poruka).
             </li>
             <li>
-              Sadržaj eksternih sajtova na koje vode linkovi sa naše
-              stranice.
+              Sadržaj eksternih sajtova na koje vode linkovi sa naše stranice.
             </li>
           </ul>
           <p className={classes.sectionText}>
-            Korišćenjem sajta prihvatate da to činite na vlastitu
-            odgovornost.
+            Korišćenjem sajta prihvatate da to činite na vlastitu odgovornost.
           </p>
         </div>
 
         <div className={classes.section}>
           <h2 className={classes.sectionTitle}>8. Eksterni linkovi</h2>
           <p className={classes.sectionText}>
-            Naš sajt može sadržati linkove ka eksternim stranicama i
-            servisima (npr. Instagram, Google Maps, Web3Forms). Ti linkovi
-            su isključivo informativnog karaktera. Ne preuzimamo odgovornost
-            za sadržaj, uslove korišćenja ili politike privatnosti tih
-            trećih strana.
+            Naš sajt može sadržati linkove ka eksternim stranicama i servisima
+            (npr. Instagram, Google Maps, Web3Forms). Ti linkovi su isključivo
+            informativnog karaktera. Ne preuzimamo odgovornost za sadržaj,
+            uslove korišćenja ili politike privatnosti tih trećih strana.
           </p>
         </div>
 
         <div className={classes.section}>
           <h2 className={classes.sectionTitle}>9. Izmjene uslova</h2>
           <p className={classes.sectionText}>
-            Zadržavamo pravo da u bilo kom trenutku izmijenimo ili dopunimo
-            ove Uslove korišćenja. Sve izmjene stupaju na snagu odmah nakon
+            Zadržavamo pravo da u bilo kom trenutku izmijenimo ili dopunimo ove
+            Uslove korišćenja. Sve izmjene stupaju na snagu odmah nakon
             objavljivanja na ovoj stranici. Nastavkom korišćenja sajta nakon
             izmjena potvrđujete da prihvatate nove uslove.
           </p>
@@ -215,8 +208,8 @@ export default function UsloviKoriscenja() {
           <p className={classes.sectionText}>
             Na ove Uslove korišćenja i sve sporove koji mogu proisteći iz
             korišćenja sajta primjenjuje se pravo{" "}
-            <strong>Bosne i Hercegovine</strong>. U slučaju spora, nadležan
-            je sud prema sjedištu rukovaoca (Banja Luka), osim ako zakon ne
+            <strong>Bosne i Hercegovine</strong>. U slučaju spora, nadležan je
+            sud prema sjedištu rukovaoca (Banja Luka), osim ako zakon ne
             propisuje drugačije.
           </p>
         </div>
@@ -238,9 +231,7 @@ export default function UsloviKoriscenja() {
           <p>Adresa: Bistrica BB, Banja Luka, Bosna i Hercegovina</p>
           <p>
             E‑mail:{" "}
-            <a href="mailto:info@jorgicwoodwork.com">
-              info@jorgicwoodwork.com
-            </a>
+            <a href="mailto:dgjorgicbl@gmail.com">dgjorgicbl@gmail.com</a>
           </p>
           <p>
             Telefon: <a href="tel:+38766531274">+387 66 531 274</a>

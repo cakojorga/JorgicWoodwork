@@ -104,9 +104,9 @@ export default function Footer() {
           <a href="https://maps.app.goo.gl/FJtjCJqRa6UcNHvW6" target="_blank">
             <GrLocation className={classes.contactIcon} /> Bistrica BB
           </a>
-          <a href="mailto:info@jorgicwoodwork.com" target="_blank">
+          <a href="mailto:dgjorgicbl@gmail.com" target="_blank">
             <MdOutlineMail className={classes.contactIcon} />{" "}
-            info@jorgicwoodwork.com
+            dgjorgicbl@gmail.com
           </a>
           <a href="tel:+38765564232" target="_blank">
             <LuPhone className={classes.contactIcon} /> +387 65 564 232

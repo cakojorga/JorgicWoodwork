@@ -6,6 +6,7 @@ import Privatnost from "./pages/Privatnost";
 import UsloviKoriscenja from "./pages/UsloviKoriscenja";
 import Galerija from "./pages/Galerija";
 import ErrorPage from "./pages/ErrorPage";
+import { Analytics } from "@vercel/analytics/react";
 
 const router = createBrowserRouter([
   {
@@ -34,7 +35,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
-}
+return (
+  <>
+    <Analytics />
+    <RouterProvider router={router} />;
+  </>
+);}
 
 export default App;

@@ -19,8 +19,8 @@ export default function Privatnost() {
         </header>
 
         <div className={classes.intro}>
-          Vaša privatnost nam je važna. Ova Politika privatnosti objašnjava
-          koje lične podatke prikupljamo putem naše internet stranice{" "}
+          Vaša privatnost nam je važna. Ova Politika privatnosti objašnjava koje
+          lične podatke prikupljamo putem naše internet stranice{" "}
           <strong>jorgicwoodwork.com</strong>, u koje svrhe ih koristimo, kako
           ih čuvamo i koja su vaša prava u vezi sa obradom tih podataka.
         </div>
@@ -28,18 +28,16 @@ export default function Privatnost() {
         <div className={classes.section}>
           <h2 className={classes.sectionTitle}>1. Ko je rukovalac podataka</h2>
           <p className={classes.sectionText}>
-            Rukovalac vaših ličnih podataka je{" "}
-            <strong>Jorgić Woodwork</strong>, stolarska radionica sa sjedištem
-            u Bistrici, Banja Luka, Bosna i Hercegovina. Za sva pitanja u vezi
-            sa obradom ličnih podataka možete nas kontaktirati putem
-            e‑mail adrese <strong>info@jorgicwoodwork.com</strong>.
+            Rukovalac vaših ličnih podataka je <strong>Jorgić Woodwork</strong>,
+            stolarska radionica sa sjedištem u Bistrici, Banja Luka, Bosna i
+            Hercegovina. Za sva pitanja u vezi sa obradom ličnih podataka možete
+            nas kontaktirati putem e‑mail adrese{" "}
+            <strong>dgjorgicbl@gmail.com</strong>.
           </p>
         </div>
 
         <div className={classes.section}>
-          <h2 className={classes.sectionTitle}>
-            2. Koje podatke prikupljamo
-          </h2>
+          <h2 className={classes.sectionTitle}>2. Koje podatke prikupljamo</h2>
           <p className={classes.sectionText}>
             Putem kontakt forme na našem sajtu prikupljamo isključivo podatke
             koje nam vi dobrovoljno dostavite. To uključuje:
@@ -63,8 +61,8 @@ export default function Privatnost() {
           </ul>
           <p className={classes.sectionText}>
             Ne prikupljamo osjetljive lične podatke (podatke o zdravlju,
-            vjerskim uvjerenjima, političkom mišljenju i sl.). Ne tražimo ni
-            ne obrađujemo podatke maloljetnih lica.
+            vjerskim uvjerenjima, političkom mišljenju i sl.). Ne tražimo ni ne
+            obrađujemo podatke maloljetnih lica.
           </p>
         </div>
 
@@ -103,8 +101,8 @@ export default function Privatnost() {
           </h2>
           <p className={classes.sectionText}>
             Za prijem poruka iz kontakt forme koristimo uslugu{" "}
-            <strong>Web3Forms</strong>, koja prosljeđuje sadržaj vaše poruke
-            na našu e‑mail adresu. Web3Forms nastupa kao obrađivač podataka i
+            <strong>Web3Forms</strong>, koja prosljeđuje sadržaj vaše poruke na
+            našu e‑mail adresu. Web3Forms nastupa kao obrađivač podataka i
             obavezan je poštovati standarde zaštite ličnih podataka. Više
             informacija dostupno je na{" "}
             <a
@@ -120,8 +118,8 @@ export default function Privatnost() {
           <p className={classes.sectionText}>
             Osim navedenog, vaše podatke <strong>ne prodajemo</strong>, ne
             iznajmljujemo niti dijelimo sa trećim licima u marketinške svrhe.
-            Podaci mogu biti otkriveni nadležnim organima samo ako to
-            zahtijeva zakon.
+            Podaci mogu biti otkriveni nadležnim organima samo ako to zahtijeva
+            zakon.
           </p>
         </div>
 
@@ -130,22 +128,21 @@ export default function Privatnost() {
           <p className={classes.sectionText}>
             Vaše podatke čuvamo samo onoliko koliko je potrebno za ispunjenje
             svrhe za koju su prikupljeni, a najduže do povlačenja vaše
-            saglasnosti. Podaci vezani za zaključene poslove čuvaju se u
-            skladu sa rokovima propisanim računovodstvenim i poreskim
-            zakonima Bosne i Hercegovine.
+            saglasnosti. Podaci vezani za zaključene poslove čuvaju se u skladu
+            sa rokovima propisanim računovodstvenim i poreskim zakonima Bosne i
+            Hercegovine.
           </p>
         </div>
 
         <div className={classes.section}>
           <h2 className={classes.sectionTitle}>7. Vaša prava</h2>
           <p className={classes.sectionText}>
-            U skladu sa Zakonom o zaštiti ličnih podataka Bosne i Hercegovine
-            i opštim principima zaštite podataka, imate pravo na:
+            U skladu sa Zakonom o zaštiti ličnih podataka Bosne i Hercegovine i
+            opštim principima zaštite podataka, imate pravo na:
           </p>
           <ul className={classes.list}>
             <li>
-              <strong>Pristup</strong> svojim podacima i informacijama o
-              obradi.
+              <strong>Pristup</strong> svojim podacima i informacijama o obradi.
             </li>
             <li>
               <strong>Ispravku</strong> netačnih ili nepotpunih podataka.
@@ -171,18 +168,18 @@ export default function Privatnost() {
             </li>
           </ul>
           <p className={classes.sectionText}>
-            Za ostvarivanje bilo kog od navedenih prava, kontaktirajte nas
-            putem kontakt podataka navedenih na kraju ove stranice.
+            Za ostvarivanje bilo kog od navedenih prava, kontaktirajte nas putem
+            kontakt podataka navedenih na kraju ove stranice.
           </p>
         </div>
 
         <div className={classes.section}>
           <h2 className={classes.sectionTitle}>8. Bezbjednost podataka</h2>
           <p className={classes.sectionText}>
-            Preduzimamo razumne tehničke i organizacione mjere kako bismo
-            vaše podatke zaštitili od neovlašćenog pristupa, gubitka,
-            izmjene ili otkrivanja. Komunikacija sa našim sajtom odvija se
-            preko <strong>HTTPS</strong> zaštićene veze.
+            Preduzimamo razumne tehničke i organizacione mjere kako bismo vaše
+            podatke zaštitili od neovlašćenog pristupa, gubitka, izmjene ili
+            otkrivanja. Komunikacija sa našim sajtom odvija se preko{" "}
+            <strong>HTTPS</strong> zaštićene veze.
           </p>
         </div>
 
@@ -190,9 +187,9 @@ export default function Privatnost() {
           <h2 className={classes.sectionTitle}>9. Kolačići (Cookies)</h2>
           <p className={classes.sectionText}>
             Naš sajt može koristiti osnovne (tehničke) kolačiće neophodne za
-            ispravno funkcionisanje stranice. Ne koristimo kolačiće za
-            marketing ili profilisanje korisnika. U svakom trenutku možete
-            onemogućiti kolačiće u podešavanjima vašeg internet preglednika.
+            ispravno funkcionisanje stranice. Ne koristimo kolačiće za marketing
+            ili profilisanje korisnika. U svakom trenutku možete onemogućiti
+            kolačiće u podešavanjima vašeg internet preglednika.
           </p>
         </div>
 
@@ -212,9 +209,9 @@ export default function Privatnost() {
           <h2 className={classes.sectionTitle}>11. Izmjene politike</h2>
           <p className={classes.sectionText}>
             Zadržavamo pravo da povremeno ažuriramo ovu Politiku privatnosti.
-            Sve izmjene biće objavljene na ovoj stranici, sa naznačenim
-            datumom posljednjeg ažuriranja. Preporučujemo vam da povremeno
-            provjerite ovu stranicu.
+            Sve izmjene biće objavljene na ovoj stranici, sa naznačenim datumom
+            posljednjeg ažuriranja. Preporučujemo vam da povremeno provjerite
+            ovu stranicu.
           </p>
         </div>
 
@@ -226,9 +223,7 @@ export default function Privatnost() {
           <p>Adresa: Bistrica BB, Banja Luka, Bosna i Hercegovina</p>
           <p>
             E‑mail:{" "}
-            <a href="mailto:info@jorgicwoodwork.com">
-              info@jorgicwoodwork.com
-            </a>
+            <a href="mailto:dgjorgicbl@gmail.com">dgjorgicbl@gmail.com</a>
           </p>
           <p>
             Telefon: <a href="tel:+38766531274">+387 66 531 274</a>
