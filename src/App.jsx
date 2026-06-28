@@ -38,8 +38,8 @@ function App() {
 return (
   <>
     <Analytics />
-    <RouterProvider router={router} />;
+    <RouterProvider router={router} />
   </>
-);}
+)}
 
 export default App;
