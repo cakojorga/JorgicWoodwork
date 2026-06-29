@@ -198,3 +198,21 @@ img.block {
   background-color: rgba(0, 0, 0, 0.4);
 }
 }
+
+@media (max-width: 560px) {
+  .titleOverPicture {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .titleOverPicture {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .titleOverPicture {
+    font-size: 0.8rem;
+  }
+}

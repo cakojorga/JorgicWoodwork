@@ -4,11 +4,12 @@ import { useSwipeable } from "react-swipeable";
 import classes from "./Gallery.module.css";
 import { gallerySliderData } from "../utility/gallerySliderData";
 import { Link } from "react-router-dom";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 export default function Gallery() {
   const [slideIndex, setSlideIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false)
-
+  const [isHovered, setIsHovered] = useState(false);
 
   const handlePreviousClick = () => {
     setSlideIndex((prevIndex) =>
@@ -35,12 +36,15 @@ export default function Gallery() {
 
     return () => clearTimeout(timer);
   }, [slideIndex]);
+  const theme = useTheme();
+  const phoneview = useMediaQuery(theme.breakpoints.down("sm"));
+  const tabletview = useMediaQuery(theme.breakpoints.between("sm", "lg"));
+  const canHover = !phoneview && !tabletview;
 
-   const imageStyle = {
-    
-     transition: "transform 0.3s ease", // Makes the enlargement smooth
-     transform: isHovered ? "scale(1.2)" : "scale(1)", // Grows 20% on hover
-   };
+  const imageStyle = {
+    transition: "transform 0.3s ease in", // Makes the enlargement smooth
+    transform: isHovered ? "scale(1.2)" : "scale(1)", // Grows 20% on hover
+  };
 
   return (
     <section
@@ -51,8 +55,8 @@ export default function Gallery() {
       <div
         className={classes.imageContainer}
         {...handlers}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        onMouseEnter={canHover ? () => setIsHovered(true) : undefined}
+        onMouseLeave={canHover ? () => setIsHovered(false) : undefined}
       >
         <button
           className={`${classes.navButton} ${classes.navButtonLeft}`}
