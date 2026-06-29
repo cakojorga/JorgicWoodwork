@@ -13,6 +13,8 @@ import { MdDesignServices } from "react-icons/md";
 import { MdOutlineWorkspacePremium } from "react-icons/md";
 import { FaChild } from "react-icons/fa6";
 import { galleryData } from "../utility/galleryData";
+import { IoMdTv } from "react-icons/io";
+
 
 
 
@@ -126,9 +128,9 @@ export default function About() {
                     to={`/Galerija/${galleryData[4].title}`}
                     className={classes.link}
                   >
-                    Prozori
+                    Dnevne sobe
                     <span className={classes.icon}>
-                      <MdOutlineWindow />
+                      <IoMdTv />
                     </span>
                   </Link>
                 </motion.li>
@@ -137,7 +139,7 @@ export default function About() {
                     to={`/Galerija/${galleryData[5].title}`}
                     className={classes.link}
                   >
-                    Dječije Sobe
+                    Dječije sobe
                     <span className={classes.icon}>
                       <FaChild />
                     </span>

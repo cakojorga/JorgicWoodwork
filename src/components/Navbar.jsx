@@ -48,6 +48,10 @@ export default function Navbar() {
     setIsHovered((prev) => !prev);
   }
 
+  function handleLeaveHover() {
+    setIsHovered(false)
+  }
+
   function closeMobileMenu() {
     setMobileOpen(false);
     setIsHovered(false);
@@ -170,6 +174,7 @@ export default function Navbar() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.2 }}
+                  onMouseLeave={handleLeaveHover}
                 >
                   {galleryData.map((item, index) => (
                     <li key={index}>

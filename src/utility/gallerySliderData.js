@@ -1,38 +1,50 @@
 export const gallerySliderData = [
   {
     id: 1,
-    alt: "Dječije Sobe",
+    alt: "Kuhinje",
     img: "https://images.unsplash.com/photo-1588436706487-9d55d73a39e3",
-    title: "Dječije Sobe",
+    title: "Kuhinje",
   },
   {
     id: 2,
-    alt: "Dječije Sobe",
+    alt: "Ormari",
     img: "https://images.unsplash.com/photo-1588436706487-9d55d73a39e3",
-    title: "Dječije Sobe",
+    title: "Ormari",
   },
   {
     id: 3,
-    alt: "Dječije Sobe",
+    alt: "Vrata",
     img: "https://images.unsplash.com/photo-1588436706487-9d55d73a39e3",
-    title: "Dječije Sobe",
+    title: "Vrata",
   },
   {
     id: 4,
-    alt: "Dječije Sobe",
+    alt: "Stepenice",
     img: "https://images.unsplash.com/photo-1588436706487-9d55d73a39e3",
-    title: "Dječije Sobe",
+    title: "Stepenice",
   },
   {
     id: 5,
-    alt: "Dječije Sobe",
+    alt: "Dnevne sobe",
     img: "https://images.unsplash.com/photo-1588436706487-9d55d73a39e3",
-    title: "Dječije Sobe",
+    title: "Dnevne sobe",
   },
   {
     id: 6,
-    alt: "Dječije Sobe",
+    alt: "Dječije sobe",
     img: "https://images.unsplash.com/photo-1588436706487-9d55d73a39e3",
-    title: "Dječije Sobe",
+    title: "Dječije sobe",
   },
+  {
+    id: 7,
+    alt: "Kreveti",
+    img: "https://images.unsplash.com/photo-1588436706487-9d55d73a39e3",
+    title: "Kreveti",
+  },
+  {
+    id: 8,
+    alt: "Ostali stolarski radovi",
+    img: "https://images.unsplash.com/photo-1588436706487-9d55d73a39e3",
+    title: "Ostali stolarski radovi",
+  }
 ];

@@ -58,10 +58,14 @@ export default function Faq() {
           >
             <motion.div variants={itemVariantsLeft} className={classes.faqItem}>
               <h3 className={classes.question}>
-                Koje vrste materijala koristite?
+                Da li izrađujete namještaj po mjeri?
               </h3>
 
-              <p className={classes.answer}>Drvo</p>
+              <p className={classes.answer}>
+                Da, izrađujemo kuhinje, plakare, vrata, stepenice,
+                krevete i ostale proizvode potpuno prilagođene
+                vašem prostoru i željama.
+              </p>
             </motion.div>
 
             <motion.div
@@ -69,18 +73,26 @@ export default function Faq() {
               className={classes.faqItem}
             >
               <h3 className={classes.question}>
-                Koje vrste materijala koristite?
+                Da li vršite izlazak na teren i mjerenje?
               </h3>
 
-              <p className={classes.answer}>Drvo</p>
+              <p className={classes.answer}>
+                Da, dolazimo na adresu radi mjerenja prostora,
+                savjetovanja oko izbora materijala i izrade ponude, kako bismo
+                osigurali da finalni proizvod savršeno odgovara vašem prostoru.
+              </p>
             </motion.div>
 
             <motion.div variants={itemVariantsLeft} className={classes.faqItem}>
               <h3 className={classes.question}>
-                Koje vrste materijala koristite?
+                Koliko traje izrada namještaja?
               </h3>
 
-              <p className={classes.answer}>Drvo</p>
+              <p className={classes.answer}>
+                Vrijeme izrade zavisi od složenosti projekta i obima posla. U
+                prosjeku, izrada traje od 2 do 6 sedmica, a tačan rok dogovaramo
+                prilikom potvrde narudžbe.
+              </p>
             </motion.div>
 
             <motion.div
@@ -88,10 +100,14 @@ export default function Faq() {
               className={classes.faqItem}
             >
               <h3 className={classes.question}>
-                Koje vrste materijala koristite?
+                Da li nudite dostavu i montažu?
               </h3>
 
-              <p className={classes.answer}>Drvo</p>
+              <p className={classes.answer}>
+                Da, nakon završene izrade radimo dostavu i 
+                montažu kako biste dobili završen proizvod spreman za
+                korištenje.
+              </p>
             </motion.div>
           </motion.div>
         </div>

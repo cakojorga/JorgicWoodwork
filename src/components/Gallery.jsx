@@ -3,9 +3,11 @@ import { motion } from "framer-motion";
 import { useSwipeable } from "react-swipeable";
 import classes from "./Gallery.module.css";
 import { gallerySliderData } from "../utility/gallerySliderData";
+import { Link } from "react-router-dom";
 
 export default function Gallery() {
   const [slideIndex, setSlideIndex] = useState(0);
+  const [isHovered, setIsHovered] = useState(false)
 
 
   const handlePreviousClick = () => {
@@ -34,29 +36,48 @@ export default function Gallery() {
     return () => clearTimeout(timer);
   }, [slideIndex]);
 
+   const imageStyle = {
+    
+     transition: "transform 0.3s ease", // Makes the enlargement smooth
+     transform: isHovered ? "scale(1.2)" : "scale(1)", // Grows 20% on hover
+   };
+
   return (
     <section
       id="gallery"
       aria-labelledby="gallery-title"
       className={classes.galleryContainer}
     >
-      <div className={classes.imageContainer} {...handlers}>
+      <div
+        className={classes.imageContainer}
+        {...handlers}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         <button
           className={`${classes.navButton} ${classes.navButtonLeft}`}
           onClick={handlePreviousClick}
         >
           &lt;
         </button>
-
+        <div className={classes.imageOverlay}></div>
         {gallerySliderData.map((item, index) => (
-          <img
-            loading="lazy"
-            decoding="async"
-            key={item.id}
-            src={item.img}
-            alt={item.alt}
-            className={slideIndex === index ? classes.block : classes.hidden}
-          />
+          <Link to={`/Galerija/${item.title}`} key={item.id}>
+            <img
+              loading="lazy"
+              decoding="async"
+              key={item.id}
+              src={item.img}
+              alt={item.alt}
+              className={slideIndex === index ? classes.block : classes.hidden}
+              style={imageStyle}
+            />
+            {slideIndex === index && (
+              <div className={classes.titleOverPicture}>
+                {item.title} <span>↗</span>
+              </div>
+            )}
+          </Link>
         ))}
 
         <button
