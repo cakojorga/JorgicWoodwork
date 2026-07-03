@@ -21,6 +21,9 @@ export default function GalleryPage() {
   const [loading, setLoading] = useState(true);
   const [searchParams] = useSearchParams();
   const [totalImages, setTotalImages] = useState(0);
+  const [originalItems, setOriginalItems] = useState([]);
+  const [thumbItems, setThumbItems] = useState([]);
+  const [urlCache] = useState(() => new Map());
 
   const currentPage = parseInt(searchParams.get("page"), 10) || 1;
   const imagesPerPage = 12;
@@ -34,7 +37,7 @@ export default function GalleryPage() {
   const startIndex = (currentPage - 1) * imagesPerPage;
   const endIndex = startIndex + imagesPerPage;
 
-  const currentImages = images.slice(startIndex, endIndex);
+  const currentImages = images;
 
   const currentIndex = currentImages.findIndex(
     (item) => item.original === selectedImage,
@@ -53,26 +56,9 @@ export default function GalleryPage() {
           listAll(thumbFolderRef),
         ]);
 
-        const imageData = await Promise.all(
-          originalResult.items.map(async (originalItem) => {
-            const thumbItem = thumbResult.items.find(
-              (item) => item.name === originalItem.name,
-            );
-
-            const originalUrl = await getDownloadURL(originalItem);
-            const thumbUrl = thumbItem
-              ? await getDownloadURL(thumbItem)
-              : originalUrl;
-
-            return {
-              original: originalUrl,
-              thumb: thumbUrl,
-            };
-          }),
-        );
-
-        setImages(imageData);
-        setTotalImages(imageData.length);
+       setOriginalItems(originalResult.items);
+       setThumbItems(thumbResult.items);
+       setTotalImages(originalResult.items.length);
       } catch (error) {
         console.error(error);
       } finally {
@@ -85,12 +71,56 @@ export default function GalleryPage() {
     }
   }, [galleryItem]);
 
+ useEffect(() => {
+   if (originalItems.length === 0) return;
+
+   async function loadCurrentPage() {
+     setLoading(true);
+     setImages([]);
+
+     const thumbMap = new Map(thumbItems.map((item) => [item.name, item]));
+
+     const pageOriginals = originalItems.slice(startIndex, endIndex);
+
+     const imageData = await Promise.all(
+       pageOriginals.map(async (originalItem) => {
+         const thumbItem = thumbMap.get(originalItem.name);
+
+        const getCachedUrl = async (item) => {
+          if (urlCache.has(item.fullPath)) {
+            return urlCache.get(item.fullPath);
+          }
+
+          const url = await getDownloadURL(item);
+          urlCache.set(item.fullPath, url);
+
+          return url;
+        };
+        const originalUrl = await getCachedUrl(originalItem);
+
+        const thumbUrl = thumbItem
+          ? await getCachedUrl(thumbItem)
+          : originalUrl;
+         return {
+           original: originalUrl,
+           thumb: thumbUrl,
+         };
+       }),
+     );
+
+     setImages(imageData);
+     setLoading(false);
+   }
+
+   loadCurrentPage();
+ }, [originalItems, thumbItems, startIndex, endIndex]);
+
   useEffect(() => {
     setLoading(true);
 
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 250);
+    }, 500);
 
     return () => clearTimeout(timer);
   }, [currentPage]);
