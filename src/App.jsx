@@ -7,6 +7,7 @@ import UsloviKoriscenja from "./pages/UsloviKoriscenja";
 import Galerija from "./pages/Galerija";
 import ErrorPage from "./pages/ErrorPage";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,7 @@ const router = createBrowserRouter([
 function App() {
 return (
   <>
+    <SpeedInsights />
     <Analytics />
     <RouterProvider router={router} />
   </>
