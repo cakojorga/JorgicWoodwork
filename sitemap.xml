@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <url>
+    <loc>https://www.jorgicwoodwork.com/</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://www.jorgicwoodwork.com/privatnost</loc>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://www.jorgicwoodwork.com/uslovi-koriscenja</loc>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- Gallery categories -->
+  <url>
+    <loc>https://www.jorgicwoodwork.com/Galerija/Kuhinje</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.jorgicwoodwork.com/Galerija/Ormari</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.jorgicwoodwork.com/Galerija/Kreveti</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.jorgicwoodwork.com/Galerija/Komode</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.jorgicwoodwork.com/Galerija/Kupatila</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://www.jorgicwoodwork.com/Galerija/Ostali%20stolarski%20radovi</loc>
+    <priority>0.9</priority>
+  </url>
+
+</urlset>
