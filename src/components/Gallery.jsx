@@ -68,7 +68,7 @@ export default function Gallery() {
         {gallerySliderData.map((item, index) => (
           <Link to={`/Galerija/${item.title}`} key={item.id}>
             <img
-              
+              loading="eager"
               decoding="async"
               key={item.id}
               src={item.img}
