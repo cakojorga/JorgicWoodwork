@@ -87,19 +87,9 @@ img.hidden {
 
 img.block {
   display: block;
-  animation: fadeIn 1s ease;
+
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
 
 .navButton {
   position: absolute;

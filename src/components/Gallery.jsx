@@ -43,7 +43,7 @@ export default function Gallery() {
 
   const imageStyle = {
     transition: "transform 0.3s ease in", // Makes the enlargement smooth
-    transform: isHovered ? "scale(1.2)" : "scale(1)", // Grows 20% on hover
+    transform: isHovered ? "scale(1.1)" : "scale(1)", // Grows 20% on hover
   };
 
   return (
@@ -68,7 +68,7 @@ export default function Gallery() {
         {gallerySliderData.map((item, index) => (
           <Link to={`/Galerija/${item.title}`} key={item.id}>
             <img
-              loading="lazy"
+              
               decoding="async"
               key={item.id}
               src={item.img}
