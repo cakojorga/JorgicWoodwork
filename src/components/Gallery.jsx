@@ -69,7 +69,7 @@ export default function Gallery() {
           <Link to={`/Galerija/${item.title}`} key={item.id}>
             <img
               loading="eager"
-              decoding="async"
+              decoding="sync"
               key={item.id}
               src={item.img}
               alt={item.alt}
