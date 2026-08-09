@@ -1,7 +1,6 @@
 import classes from "./Hero.module.css";
 import { motion } from "framer-motion";
 
-
 export default function Hero() {
 
   const scrollToContact = () => {

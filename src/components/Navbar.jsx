@@ -84,7 +84,7 @@ export default function Navbar() {
       <div className={classes.navContainer}>
         <img
           src="/logonav.jpg"
-          alt="Logo"
+          alt="Jorgić Woodwork"
           className={classes.navbarLogo}
           onClick={(e) => {
             e.preventDefault();
