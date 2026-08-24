@@ -6,9 +6,9 @@ import Hero from "../components/Hero";
 export default function Home() {
   return (
     <>
-      <div className="container">
+      <body className="container">
         <Hero />
-      </div>
+      </body>
       <About />
       <Gallery />
       <Faq />

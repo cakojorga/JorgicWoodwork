@@ -51,7 +51,10 @@ export default function Hero() {
               Zatražite ponudu
             </button>
 
-            <button className={classes.secondaryButton} onClick={scrollToGallery}>
+            <button
+              className={classes.secondaryButton}
+              onClick={scrollToGallery}
+            >
               Pogledajte galeriju
             </button>
           </motion.div>
