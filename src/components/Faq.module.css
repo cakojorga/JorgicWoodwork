@@ -17,7 +17,7 @@
 }
 
 .faqItem {
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-inter), sans-serif;
   font-size: 1rem;
   line-height: 1.7;
   color: rgba(229, 231, 235, 0.9);

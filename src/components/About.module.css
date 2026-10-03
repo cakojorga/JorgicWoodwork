@@ -27,7 +27,7 @@
 }
 
 .lead {
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-inter), sans-serif;
   font-size: 1.125rem; /* 18px */
   line-height: 1.8;
   color: #e5e7eb;
@@ -81,7 +81,7 @@
   color: #ffffff;
 }
 .note {
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-inter), sans-serif;
   font-size: 1.1rem;
   line-height: 1.7;
   color: rgba(229, 231, 235, 0.9);
@@ -189,7 +189,7 @@
 }
 
 .highlightText {
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-inter), sans-serif;
   line-height: 1.6;
   color: #e5e7eb;
   margin-top: 1rem;

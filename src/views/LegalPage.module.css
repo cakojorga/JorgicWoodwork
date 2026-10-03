@@ -3,7 +3,7 @@
   color: #e5e7eb;
   padding: 8rem 1.5rem 5rem;
   min-height: 100vh;
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-inter), sans-serif;
 }
 
 .container {

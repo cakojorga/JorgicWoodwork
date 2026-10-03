@@ -27,6 +27,7 @@ export default function Footer() {
             <img
               src="/logonav.webp"
               alt="Jorgić Woodwork – početna"
+              loading="lazy"
               className={classes.footerLogo}
             />
           </Link>
