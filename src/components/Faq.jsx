@@ -1,5 +1,8 @@
+"use client";
+
 import classes from "./Faq.module.css";
 import { motion } from "framer-motion";
+import { faqs } from "../utility/faqData";
 
 export default function Faq() {
   const containerVariants = {
@@ -56,59 +59,17 @@ export default function Faq() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
           >
-            <motion.div variants={itemVariantsLeft} className={classes.faqItem}>
-              <h3 className={classes.question}>
-                Da li izrađujete namještaj po mjeri?
-              </h3>
+            {faqs.map((faq, index) => (
+              <motion.div
+                key={faq.question}
+                variants={index % 2 === 0 ? itemVariantsLeft : itemVariantsRight}
+                className={classes.faqItem}
+              >
+                <h3 className={classes.question}>{faq.question}</h3>
 
-              <p className={classes.answer}>
-                Da, izrađujemo kuhinje, plakare, vrata, stepenice,
-                krevete i ostale proizvode potpuno prilagođene
-                vašem prostoru i željama.
-              </p>
-            </motion.div>
-
-            <motion.div
-              variants={itemVariantsRight}
-              className={classes.faqItem}
-            >
-              <h3 className={classes.question}>
-                Da li vršite izlazak na teren i mjerenje?
-              </h3>
-
-              <p className={classes.answer}>
-                Da, dolazimo na adresu radi mjerenja prostora,
-                savjetovanja oko izbora materijala i izrade ponude, kako bismo
-                osigurali da finalni proizvod savršeno odgovara vašem prostoru.
-              </p>
-            </motion.div>
-
-            <motion.div variants={itemVariantsLeft} className={classes.faqItem}>
-              <h3 className={classes.question}>
-                Koliko traje izrada namještaja?
-              </h3>
-
-              <p className={classes.answer}>
-                Vrijeme izrade zavisi od složenosti projekta i obima posla. U
-                prosjeku, izrada traje od 2 do 6 sedmica, a tačan rok dogovaramo
-                prilikom potvrde narudžbe.
-              </p>
-            </motion.div>
-
-            <motion.div
-              variants={itemVariantsRight}
-              className={classes.faqItem}
-            >
-              <h3 className={classes.question}>
-                Da li nudite dostavu i montažu?
-              </h3>
-
-              <p className={classes.answer}>
-                Da, nakon završene izrade radimo dostavu i 
-                montažu kako biste dobili završen proizvod spreman za
-                korištenje.
-              </p>
-            </motion.div>
+                <p className={classes.answer}>{faq.answer}</p>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </div>

@@ -1,8 +1,16 @@
+"use client";
+
 import classes from "./ContactForm.module.css";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
+import Link from "next/link";
 import { FaPhone, FaEnvelope } from "react-icons/fa";
 import { IoPersonSharp, IoChatbox } from "react-icons/io5";
+
+// Web3Forms' shared hCaptcha site key for its free plan (their docs). Web3Forms
+// verifies the token on its server once hCaptcha is enabled for the form in
+// the Web3Forms dashboard.
+const HCAPTCHA_SITEKEY = "50b2fe65-b00b-4b9e-ad62-3ba471098be2";
 
 const INITIAL_STATE = {
   name: "",
@@ -18,6 +26,31 @@ export default function ContactForm() {
   const [result, setResult] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorCleanup, setErrorCleanup] = useState(false);
+  const botcheckRef = useRef(null);
+  const formRef = useRef(null);
+  const captchaRef = useRef(null);
+  const [captchaToken, setCaptchaToken] = useState("");
+  // The hCaptcha script is only loaded once the form is close to the screen
+  const [showCaptcha, setShowCaptcha] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShowCaptcha(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "600px 0px" },
+    );
+    observer.observe(formRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  const resetCaptcha = () => {
+    captchaRef.current?.resetCaptcha();
+    setCaptchaToken("");
+  };
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -67,6 +100,10 @@ export default function ContactForm() {
         "Morate prihvatiti Uslove korišćenja i Politiku privatnosti.";
     }
 
+    if (!captchaToken) {
+      errs.captcha = "Potvrdite da niste robot.";
+    }
+
     return errs;
   };
 
@@ -80,6 +117,14 @@ export default function ContactForm() {
 
     if (Object.keys(errs).length > 0) {
       setResult("Molimo ispravite označena polja prije slanja.");
+      return;
+    }
+
+    // Honeypot: real users never see this checkbox, spam bots tick everything.
+    // Pretend it worked so the bot doesn't retry.
+    if (botcheckRef.current?.checked) {
+      setResult("Hvala vam na poruci!");
+      setForm(INITIAL_STATE);
       return;
     }
 
@@ -98,6 +143,7 @@ export default function ContactForm() {
         "Korisnik je prihvatio Uslove korišćenja i Politiku privatnosti.",
       );
       payload.append("access_key", "45dce0e1-7970-4337-aacb-31116e99c2ab");
+      payload.append("h-captcha-response", captchaToken);
 
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -116,11 +162,13 @@ export default function ContactForm() {
       setResult("Došlo je do greške. Pokušajte ponovo.");
     } finally {
       setIsSubmitting(false);
+      // A captcha token can only be used once
+      resetCaptcha();
     }
   };
 
   return (
-    <form onSubmit={onSubmit} noValidate className={classes.contactForm}>
+    <form ref={formRef} onSubmit={onSubmit} noValidate className={classes.contactForm}>
       <div className={classes.formGroup}>
         <label htmlFor="name">
           <IoPersonSharp />
@@ -201,7 +249,7 @@ export default function ContactForm() {
           <div>
             Slažem se sa&nbsp;
             <Link
-              to="/uslovi-koriscenja"
+              href="/uslovi-koriscenja"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -210,13 +258,44 @@ export default function ContactForm() {
             &nbsp;i&nbsp;
           </div>
           <span>
-            <Link to="/privatnost" rel="noopener noreferrer" target="_blank">
+            <Link href="/privatnost" rel="noopener noreferrer" target="_blank">
               Politikom privatnosti
             </Link>
           </span>
         </label>
       </div>
       {errors.consent && <p className={classes.fieldError}>{errors.consent}</p>}
+
+      <input
+        ref={botcheckRef}
+        type="checkbox"
+        name="botcheck"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        style={{ display: "none" }}
+      />
+
+      <div className={classes.captchaGroup}>
+        {showCaptcha && (
+          <HCaptcha
+            ref={captchaRef}
+            sitekey={HCAPTCHA_SITEKEY}
+            reCaptchaCompat={false}
+            theme="dark"
+            languageOverride="bs"
+            onVerify={(token) => {
+              setCaptchaToken(token);
+              setErrors((prev) => ({ ...prev, captcha: undefined }));
+            }}
+            onExpire={() => setCaptchaToken("")}
+            onError={() => setCaptchaToken("")}
+          />
+        )}
+      </div>
+      {errors.captcha && (
+        <p className={`${classes.fieldError} ${classes.captchaError}`}>{errors.captcha}</p>
+      )}
 
       <button
         type="submit"

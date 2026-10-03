@@ -1,102 +1,79 @@
+"use client";
+
 import classes from "./Hero.module.css";
-import { motion } from "framer-motion";
+import { HiArrowRight } from "react-icons/hi2";
+import { useScrollToSection } from "../hooks/useScrollToSection";
+
+const STATS = [
+  { value: "30+", label: "godina iskustva" },
+  { value: "1000+", label: "projekata" },
+  { value: "500+", label: "zadovoljnih klijenata" },
+];
+
+// The entrance animation is plain CSS (Hero.module.css), not Framer Motion,
+// so the headline is visible as soon as the HTML is painted instead of
+// waiting for JavaScript. Same timing and easing as before.
+const fadeUp = (delay) => ({ style: { animationDelay: `${delay}s` } });
 
 export default function Hero() {
-
-  const scrollToContact = () => {
-    const contactSection = document.getElementById("kontakt");
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: "smooth" });
-    }
-  }
-  const scrollToGallery = () => {
-    const gallerySection = document.getElementById("o-nama-header");
-    if (gallerySection) {
-      gallerySection.scrollIntoView({ behavior: "smooth" });
-    }
-  }
+  const { scrollToSection } = useScrollToSection();
 
   return (
-    <>
-      <div className={classes.overlay} aria-hidden="true"></div>
-      <section className={classes.hero} id="home" aria-labelledby="home-title">
-        <div className={classes.heroContent}>
-          <motion.h1
-            className={classes.heroTitle}
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            Unaprijedite svoj dom
-          </motion.h1>
-
-          <motion.p
-            className={classes.heroSubtitle}
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-          >
-            Izrada kuhinja, ormara, vrata i namještaja po mjeri u Banjoj Luci i
-            okolini. Spoj tradicionalne izrade i modernog dizajna za dugotrajan
-            kvalitet.
-          </motion.p>
-
-          <motion.div
-            className={classes.btnContainer}
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-          >
-            <button className={classes.primaryButton} onClick={scrollToContact}>
-              Zatražite ponudu
-            </button>
-
-            <button
-              className={classes.secondaryButton}
-              onClick={scrollToGallery}
+    <section className={classes.hero} id="home" aria-labelledby="home-title">
+      <div className={classes.heroContent}>
+        <h1 id="home-title" {...fadeUp(0)} className={`${classes.heroTitle} ${classes.fadeUp}`}>
+          Unaprijedi svoj{" "}
+          <span className={classes.highlight}>
+            dom
+            <svg
+              className={classes.underline}
+              viewBox="0 0 120 14"
+              preserveAspectRatio="none"
+              aria-hidden="true"
             >
-              Pogledajte galeriju
-            </button>
-          </motion.div>
+              <path
+                d="M3 9.5C28 4 62 2.5 117 6.5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="5"
+                strokeLinecap="round"
+                pathLength="1"
+                className={classes.underlinePath}
+              />
+            </svg>
+          </span>
+        </h1>
 
-          <motion.div
-            className={classes.scrollIndicator}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
+        <p {...fadeUp(0.1)} className={`${classes.heroSubtitle} ${classes.fadeUp}`}>
+          Izrada kuhinja, ormara, vrata i namještaja po mjeri u Banjoj Luci i
+          okolini. Spoj tradicionalne izrade i modernog dizajna za dugotrajan
+          kvalitet.
+        </p>
+
+        <div {...fadeUp(0.2)} className={`${classes.btnContainer} ${classes.fadeUp}`}>
+          <button
+            className={classes.primaryButton}
+            onClick={() => scrollToSection("kontakt")}
           >
-            <motion.div className={classes.stats}>
-              <div className={classes.statsHighlight}>
-                <span className={classes.statsNumber}>30</span>
-                <span className={classes.statsPlus}>+</span>
-              </div>
-              <span className={classes.statsSpan}>Godina Iskustva</span>
-            </motion.div>
-            <motion.div
-              className={classes.divider}
-              aria-hidden="true"
-            ></motion.div>
-            <motion.div className={classes.stats}>
-              <div className={classes.statsHighlight}>
-                <span className={classes.statsNumber}>1000</span>
-                <span className={classes.statsPlus}>+</span>
-              </div>
-              <span className={classes.statsSpan}>Projekata</span>
-            </motion.div>
-            <motion.div
-              className={classes.divider}
-              aria-hidden="true"
-            ></motion.div>
-            <motion.div className={classes.stats}>
-              <div className={classes.statsHighlight}>
-                <span className={classes.statsNumber}>500</span>
-                <span className={classes.statsPlus}>+</span>
-              </div>
-              <span className={classes.statsSpan}>Zadovoljnih Klijenata</span>
-            </motion.div>
-          </motion.div>
+            Zatraži ponudu
+          </button>
+          <button
+            className={classes.secondaryButton}
+            onClick={() => scrollToSection("gallery")}
+          >
+            Pogledaj radove
+            <HiArrowRight className={classes.arrow} aria-hidden="true" />
+          </button>
         </div>
-      </section>
-    </>
+
+        <ul {...fadeUp(0.3)} className={`${classes.stats} ${classes.fadeUp}`}>
+          {STATS.map((stat) => (
+            <li key={stat.label}>
+              <strong>{stat.value}</strong> {stat.label}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
   );
 }

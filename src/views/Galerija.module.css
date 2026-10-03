@@ -1,0 +1,289 @@
+.pageSettings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
+
+.loader {
+  color: #fff !important;
+}
+
+.title {
+  text-align: center;
+}
+
+.description {
+  max-width: 800px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #cbd5f5;
+}
+
+.line {
+  height: 3px;
+  width: 84px;
+  background: linear-gradient(
+    90deg,
+    rgba(246, 143, 59, 0.2),
+    #ff6347,
+    rgba(246, 143, 59, 0.2)
+  );
+  border-radius: 999px;
+  margin-bottom: 20px;
+}
+
+.imageList {
+  display: grid;
+  grid-template-columns: repeat(1fr);
+  width: 100%;
+  height: auto;
+  max-width: 1200px;
+  padding: 20px !important;
+  margin-bottom: 60px;
+}
+
+/* The tile is a fixed frame; on hover only the photo inside zooms in */
+.imageItem {
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.image {
+  border-radius: 8px;
+  width: 100%;
+  transition: transform 0.5s ease;
+  height: auto;
+  object-fit: cover !important;
+}
+
+@media (hover: hover) {
+  .imageItem:hover .image {
+    transform: scale(1.06);
+  }
+}
+
+/* Small press feedback, still inside the frame */
+.imageItem:active .image {
+  transform: scale(1.03);
+}
+
+.modalImage {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 8px;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  z-index: 1700;
+  text-align: end;
+}
+
+.galleryContainer {
+  min-height: 100vh;
+}
+
+.galleryPlaceholder {
+  min-height: 100vh;
+}
+
+.closeButton {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.25s ease;
+}
+
+.closeButton:hover {
+  color: #ff6347;
+}
+
+.closeButton:focus-visible,
+.arrowButton:focus-visible {
+  outline: 2px solid #ff6347;
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
+.arrowButton {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.25s ease;
+}
+
+.arrowButton:hover {
+  color: #ff6347;
+}
+
+.modalImage {
+  position: relative;
+  z-index: 1001;
+}
+
+/* Lightbox: frame sized to the photo's shape (set inline once known),
+   blurred thumbnail + spinner while the full-size photo loads */
+.lightboxFrame {
+  position: relative;
+  width: min(90vw, 640px);
+  aspect-ratio: 4 / 3;
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.lightboxThumb,
+.lightboxFull {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+}
+
+.lightboxThumb {
+  filter: blur(8px);
+  transform: scale(1.04);
+  transition: opacity 0.3s ease;
+}
+
+.lightboxFull {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.lightboxShown {
+  opacity: 1;
+}
+
+.lightboxHidden {
+  opacity: 0;
+}
+
+.lightboxSpinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1002;
+  width: 44px;
+  height: 44px;
+  margin: -22px 0 0 -22px;
+  border: 3px solid rgba(255, 255, 255, 0.25);
+  border-top-color: #ff6347;
+  border-radius: 50%;
+  animation: lightboxSpin 0.8s linear infinite;
+}
+
+@keyframes lightboxSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lightboxSpinner {
+    animation-duration: 2.4s;
+  }
+}
+
+.emptyGallery {
+  margin-top: 40px;
+  text-align: center;
+  color: #cbd5f5;
+  opacity: 0.8;
+}
+
+.paginationNav {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.paginationList {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin-bottom: 50px;
+}
+
+.pageItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  border: 1px solid rgba(203, 213, 245, 0.2);
+  background-color: rgba(255, 255, 255, 0.04);
+  color: #e5e7eb;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s,
+    color 0.2s;
+}
+
+a.pageItem:hover,
+a.pageItem:focus-visible {
+  border-color: rgba(255, 99, 71, 0.8);
+  color: #ffffff;
+}
+
+.pageActive {
+  background-color: #ff6347;
+  border-color: #ff6347;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+a.pageActive:hover {
+  color: #ffffff;
+}
+
+.pageDisabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+@media (max-width: 900px) {
+  .arrowButton {
+    display: none;
+  }
+
+  .closeButton {
+    font-size: 1.5rem;
+  }
+}

@@ -1,8 +1,12 @@
-import { useNavigate, NavLink, useLocation } from "react-router-dom";
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import classes from "./Navbar.module.css";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { galleryData } from "../utility/galleryData";
+import { galleryData, galleryPath } from "../utility/galleryData";
+import { useScrollToSection } from "../hooks/useScrollToSection";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
 
 const ArrowIcon = ({ isOpen }) => {
@@ -28,11 +32,11 @@ export default function Navbar() {
   const [isHovered, setIsHovered] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const location = useLocation();
-  const navigate = useNavigate();
+  const pathname = usePathname();
+  const { scrollToSection, scrollHomeTop } = useScrollToSection();
 
   const isHomeOrGallery =
-    location.pathname === "/" || location.pathname.startsWith("/Galerija");
+    pathname === "/" || pathname.startsWith("/galerija");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,22 +61,18 @@ export default function Navbar() {
     setIsHovered(false);
   }
 
-  async function scrollHomeTop() {
-    const target = document.getElementById("home");
+  function goToSection(id) {
+    return (e) => {
+      e.preventDefault();
+      scrollToSection(id);
+      closeMobileMenu();
+    };
+  }
 
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      return;
-    }
-
-    await navigate("/");
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 100));
-    } catch (error) {
-      console.error("Navigation error:", error);
-    }
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  function goHome(e) {
+    e.preventDefault();
+    scrollHomeTop();
+    closeMobileMenu();
   }
 
   return (
@@ -82,93 +82,68 @@ export default function Navbar() {
       } ${scrolled ? classes.scrolledNav : ""}`}
     >
       <div className={classes.navContainer}>
-        <img
-          src="/logonav.jpg"
-          alt="Jorgić Woodwork"
-          className={classes.navbarLogo}
-          onClick={(e) => {
-            e.preventDefault();
-            scrollHomeTop();
-            closeMobileMenu();
-          }}
-        />
+        <Link href="/" onClick={goHome} className={classes.logoLink}>
+          <img
+            src="/logonav.jpg"
+            alt="Jorgić Woodwork – početna"
+            className={classes.navbarLogo}
+          />
+        </Link>
 
         <button
           className={classes.hamburger}
           onClick={() => setMobileOpen((prev) => !prev)}
+          aria-label={mobileOpen ? "Zatvori meni" : "Otvori meni"}
+          aria-expanded={mobileOpen}
+          aria-controls="main-menu"
         >
           {mobileOpen ? <HiX /> : <HiMenuAlt3 />}
         </button>
 
         <ul
+          id="main-menu"
           className={`${classes.navbarLinks} ${
             mobileOpen ? classes.mobileActive : ""
           }`}
         >
-          <NavLink
-            to="/"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollHomeTop();
-              closeMobileMenu();
-            }}
-          >
-            Početna
-          </NavLink>
+          {/* <li> with display: contents keeps the list valid without changing the layout */}
+          <li className={classes.menuItem}>
+            <Link href="/" onClick={goHome}>
+              Početna
+            </Link>
+          </li>
 
-          <NavLink
-            to="/#o-nama"
-            onClick={(e) => {
-              e.preventDefault();
+          <li className={classes.menuItem}>
+            <Link href="/#o-nama" onClick={goToSection("o-nama")}>
+              O nama
+            </Link>
+          </li>
 
-              const target = document.getElementById("o-nama");
+          <li className={classes.menuItem}>
+            <Link href="/#kontakt" onClick={goToSection("kontakt")}>
+              Kontakt
+            </Link>
+          </li>
 
-              if (target) {
-                target.scrollIntoView({ behavior: "smooth" });
-              } else {
-                navigate("/#o-nama");
-              }
-
-              closeMobileMenu();
-            }}
-          >
-            O nama
-          </NavLink>
-
-          <NavLink
-            to="/#kontakt"
-            onClick={(e) => {
-              e.preventDefault();
-
-              const target = document.getElementById("kontakt");
-
-              if (target) {
-                target.scrollIntoView({ behavior: "smooth" });
-              } else {
-                navigate("/#kontakt");
-              }
-
-              closeMobileMenu();
-            }}
-          >
-            Kontakt
-          </NavLink>
-
-          <div
+          <li
             className={classes.dropdownWrapper}
             onClick={(e) => e.preventDefault()}
           >
-            <motion.div
+            <motion.button
+              type="button"
               onClick={handleHover}
               className={classes.dropdownContainer}
+              aria-expanded={isHovered}
+              aria-controls="gallery-menu"
             >
               Galerija
               <ArrowIcon isOpen={isHovered} />
-            </motion.div>
+            </motion.button>
 
             <AnimatePresence>
               {isHovered && (
-                <motion.div
+                <motion.ul
+                  id="gallery-menu"
                   className={classes.dropdown}
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -176,20 +151,20 @@ export default function Navbar() {
                   transition={{ duration: 0.2 }}
                   onMouseLeave={handleLeaveHover}
                 >
-                  {galleryData.map((item, index) => (
-                    <li key={index}>
-                      <NavLink
-                        to={`/Galerija/${item.title}`}
+                  {galleryData.map((item) => (
+                    <li key={item.id}>
+                      <Link
+                        href={galleryPath(item)}
                         onClick={closeMobileMenu}
                       >
                         {item.title}
-                      </NavLink>
+                      </Link>
                     </li>
                   ))}
-                </motion.div>
+                </motion.ul>
               )}
             </AnimatePresence>
-          </div>
+          </li>
         </ul>
       </div>
     </nav>

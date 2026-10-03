@@ -1,23 +1,11 @@
+"use client";
+
 import classes from "./About.module.css";
-import { MdOutlineKitchen } from "react-icons/md";
-import { BiCabinet } from "react-icons/bi";
-import { MdOutlineDoorBack } from "react-icons/md";
-import { FaStairs } from "react-icons/fa6";
-import { MdOutlineWindow } from "react-icons/md";
-import { LuBedDouble } from "react-icons/lu";
-import { MdMiscellaneousServices } from "react-icons/md";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { FiTool } from "react-icons/fi";
-import { MdDesignServices } from "react-icons/md";
-import { MdOutlineWorkspacePremium } from "react-icons/md";
-import { FaChild } from "react-icons/fa6";
-import { galleryData } from "../utility/galleryData";
-import { IoMdTv } from "react-icons/io";
-
-
-
-
+import { MdDesignServices, MdOutlineWorkspacePremium } from "react-icons/md";
+import { galleryData, galleryPath } from "../utility/galleryData";
 
 const containerVariants = {
   hidden: {},
@@ -79,100 +67,21 @@ export default function About() {
                 viewport={{ once: true, amount: 0.2 }}
                 variants={containerVariants}
               >
-                <motion.li variants={itemVariants}>
-                  <Link
-                    to={`/Galerija/${galleryData[0].title}`}
-                    className={classes.link}
-                  >
-                    Kuhinje
-                    <span className={classes.icon}>
-                      <MdOutlineKitchen />
-                    </span>
-                  </Link>
-                </motion.li>
-                <motion.li variants={itemVariants}>
-                  <Link
-                    to={`/Galerija/${galleryData[1].title}`}
-                    className={classes.link}
-                  >
-                    Ormari
-                    <span className={classes.icon}>
-                      <BiCabinet />
-                    </span>
-                  </Link>
-                </motion.li>
-                <motion.li variants={itemVariants}>
-                  <Link
-                    to={`/Galerija/${galleryData[2].title}`}
-                    className={classes.link}
-                  >
-                    Vrata
-                    <span className={classes.icon}>
-                      <MdOutlineDoorBack />
-                    </span>
-                  </Link>
-                </motion.li>
-                <motion.li variants={itemVariants}>
-                  <Link
-                    to={`/Galerija/${galleryData[3].title}`}
-                    className={classes.link}
-                  >
-                    Stepenice
-                    <span className={classes.icon}>
-                      <FaStairs />
-                    </span>
-                  </Link>
-                </motion.li>
-                <motion.li variants={itemVariants}>
-                  <Link
-                    to={`/Galerija/${galleryData[4].title}`}
-                    className={classes.link}
-                  >
-                    Dnevne sobe
-                    <span className={classes.icon}>
-                      <IoMdTv />
-                    </span>
-                  </Link>
-                </motion.li>
-                <motion.li variants={itemVariants}>
-                  <Link
-                    to={`/Galerija/${galleryData[5].title}`}
-                    className={classes.link}
-                  >
-                    Dječije sobe
-                    <span className={classes.icon}>
-                      <FaChild />
-                    </span>
-                  </Link>
-                </motion.li>
-                <motion.li variants={itemVariants}>
-                  <Link
-                    to={`/Galerija/${galleryData[6].title}`}
-                    className={classes.link}
-                  >
-                    Kreveti
-                    <span className={classes.icon}>
-                      <LuBedDouble />
-                    </span>
-                  </Link>
-                </motion.li>
-                <motion.li variants={itemVariants}>
-                  <Link
-                    to={`/Galerija/${galleryData[7].title}`}
-                    className={classes.link}
-                  >
-                    Ostali stolarski radovi
-                    <span className={classes.icon}>
-                      <MdMiscellaneousServices />
-                    </span>
-                  </Link>
-                </motion.li>
+                {galleryData.map((item) => (
+                  <motion.li key={item.id} variants={itemVariants}>
+                    <Link href={galleryPath(item)} className={classes.link}>
+                      {item.title}
+                      <span className={classes.icon}>
+                        <item.icon />
+                      </span>
+                    </Link>
+                  </motion.li>
+                ))}
               </motion.ul>
             </div>
           </div>
           <div className={classes.line} aria-hidden="true"></div>
           <div className={classes.whyUs}>
-            <h3 className={classes.subTitle}>Zašto Jorgić Woodwork</h3>
             <motion.ul
               className={classes.highlights}
               initial="hidden"
@@ -194,7 +103,7 @@ export default function About() {
                 variants={itemVariants}
                 className={classes.highlightItemCenter}
               >
-                <span>Dizajn po vašoj mjeri</span>
+                <span>Dizajn po tvojoj mjeri</span>
                 <MdDesignServices className={classes.highlightIcon} />
                 <p className={classes.highlightText}>
                   <span>Funkcionalno, dugotrajno i vizuelno skladno.</span>

@@ -138,6 +138,19 @@
 }
 
 /* Submit button */
+/* hCaptcha widget, right-aligned above the submit button. The space is
+   reserved (78px = widget height) so nothing jumps when it loads. */
+.captchaGroup {
+  align-self: flex-end;
+  min-height: 78px;
+  margin-top: 0.25rem;
+}
+
+.captchaError {
+  margin: 0.5rem 0 0;
+  text-align: right;
+}
+
 .contactForm .submitButton {
   background-color: #ff6347;
   color: #e5e7eb;
@@ -198,3 +211,12 @@
   }
 }
 
+
+/* Very narrow phones: the 303px widget would overflow, so scale it down */
+@media (max-width: 360px) {
+  .captchaGroup {
+    align-self: center;
+    transform: scale(0.9);
+    transform-origin: center top;
+  }
+}

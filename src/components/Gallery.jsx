@@ -1,96 +1,195 @@
-import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, MotionConfig, motion, useReducedMotion } from "framer-motion";
+import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 import { useSwipeable } from "react-swipeable";
+import Link from "next/link";
+import { HiArrowUpRight, HiChevronLeft, HiChevronRight } from "react-icons/hi2";
 import classes from "./Gallery.module.css";
-import { gallerySliderData } from "../utility/gallerySliderData";
-import { Link } from "react-router-dom";
-import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
+import { highlights } from "../utility/highlightsData";
+import { galleryData, galleryPath } from "../utility/galleryData";
+
+const INTERVAL = 6000; // ms each slide stays on screen
+const SIZES = "(max-width: 1132px) 100vw, 1100px";
+const pad = (n) => String(n).padStart(2, "0");
 
 export default function Gallery() {
-  const [slideIndex, setSlideIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
+  const [index, setIndex] = useState(0);
+  const [hovered, setHovered] = useState(false);
+  const [inView, setInView] = useState(false);
+  const [tabVisible, setTabVisible] = useState(true);
+  const reduceMotion = useReducedMotion();
+  const stageRef = useRef(null);
 
-  const handlePreviousClick = () => {
-    setSlideIndex((prevIndex) =>
-      prevIndex === 0 ? gallerySliderData.length - 1 : prevIndex - 1,
+  const count = highlights.length;
+  const slide = highlights[index];
+  const category = galleryData.find((item) => item.slug === slide.category);
+
+  // Autoplay is driven by the progress bar's CSS animation (see onAnimationEnd),
+  // so pausing it also pauses the timer at the exact same point.
+  // className depends on this, so it must match the server render (see hook)
+  const autoplay = !usePrefersReducedMotion();
+  const paused = hovered || !inView || !tabVisible;
+
+  const next = () => setIndex((i) => (i + 1) % count);
+  const prev = () => setIndex((i) => (i - 1 + count) % count);
+
+  // Only run while the slider is actually on screen
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0.35 },
     );
-  };
+    observer.observe(stageRef.current);
+    return () => observer.disconnect();
+  }, []);
 
-  const handleNextClick = () => {
-    setSlideIndex((prevIndex) => (prevIndex + 1) % gallerySliderData.length);
-  };
+  useEffect(() => {
+    const onVisibility = () => setTabVisible(!document.hidden);
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => document.removeEventListener("visibilitychange", onVisibility);
+  }, []);
 
-  const handlers = useSwipeable({
-    onSwipedLeft: () => handleNextClick(),
-    onSwipedRight: () => handlePreviousClick(),
+  // Warm the cache for the next slide so the crossfade never waits on the network
+  useEffect(() => {
+    if (!inView) return;
+    const upcoming = highlights[(index + 1) % count];
+    const img = new Image();
+    img.sizes = SIZES;
+    img.srcset = upcoming.srcSet;
+    img.src = upcoming.src;
+  }, [index, inView, count]);
+
+  // useSwipeable hands back its own ref, which has to share the element with ours
+  const { ref: swipeRef, ...swipeHandlers } = useSwipeable({
+    onSwipedLeft: next,
+    onSwipedRight: prev,
     preventScrollOnSwipe: true,
-    trackTouch: true,
     trackMouse: false,
   });
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      handleNextClick();
-    }, 5000);
-
-    return () => clearTimeout(timer);
-  }, [slideIndex]);
-  const theme = useTheme();
-  const phoneview = useMediaQuery(theme.breakpoints.down("sm"));
-  const tabletview = useMediaQuery(theme.breakpoints.between("sm", "lg"));
-  const canHover = !phoneview && !tabletview;
-
-  const imageStyle = {
-    transition: "transform 0.3s ease in", // Makes the enlargement smooth
-    transform: isHovered ? "scale(1.1)" : "scale(1)", // Grows 20% on hover
+  const setStageRef = (el) => {
+    stageRef.current = el;
+    swipeRef(el);
   };
 
   return (
+    // Same initial values on server and client; MotionConfig drops the zoom
+    // for visitors who prefer reduced motion.
+    <MotionConfig reducedMotion="user">
     <section
       id="gallery"
+      className={classes.section}
       aria-labelledby="gallery-title"
-      className={classes.galleryContainer}
+      aria-roledescription="carousel"
     >
+      <div className={classes.header}>
+        <h2 id="gallery-title" className={classes.title}>
+          Izdvojeni radovi
+        </h2>
+        <p className={classes.lead}>
+          Izbor projekata na koje smo posebno ponosni. Kliknite na fotografiju
+          i pogledajte cijelu kategoriju.
+        </p>
+        <div className={classes.line} aria-hidden="true"></div>
+      </div>
+
       <div
-        className={classes.imageContainer}
-        {...handlers}
-        onMouseEnter={canHover ? () => setIsHovered(true) : undefined}
-        onMouseLeave={canHover ? () => setIsHovered(false) : undefined}
+        ref={setStageRef}
+        className={classes.stage}
+        {...swipeHandlers}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        onFocus={() => setHovered(true)}
+        onBlur={() => setHovered(false)}
       >
-        <button
-          className={`${classes.navButton} ${classes.navButtonLeft}`}
-          onClick={handlePreviousClick}
-        >
-          &lt;
-        </button>
-        <div className={classes.imageOverlay}></div>
-        {gallerySliderData.map((item, index) => (
-          <Link to={`/Galerija/${item.title}`} key={item.id}>
-            <img
-              loading="eager"
-              decoding="async"
-              key={item.id}
-              src={item.img}
-              alt={item.alt}
-              className={slideIndex === index ? classes.block : classes.hidden}
-              style={imageStyle}
-            />
-            {slideIndex === index && (
-              <div className={classes.titleOverPicture}>
-                {item.title} <span>↗</span>
-              </div>
-            )}
-          </Link>
-        ))}
+        <AnimatePresence initial={false}>
+          <motion.div
+            key={slide.id}
+            className={classes.slide}
+            initial={{ opacity: 0, zIndex: 2 }}
+            animate={{ opacity: 1, zIndex: 2 }}
+            // Keep the old slide underneath until the new one has faded in
+            exit={{ opacity: 0, zIndex: 1, transition: { duration: 0.3, delay: 0.9 } }}
+            transition={{ duration: reduceMotion ? 0.3 : 1, ease: [0.4, 0, 0.2, 1] }}
+          >
+            <Link
+              href={galleryPath(category)}
+              className={classes.slideLink}
+              aria-label={`${slide.alt} – pogledajte kategoriju ${category.title}`}
+              draggable={false}
+            >
+              <motion.img
+                src={slide.src}
+                srcSet={slide.srcSet}
+                sizes={SIZES}
+                alt=""
+                className={classes.image}
+                draggable={false}
+                initial={{ scale: 1.08 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: INTERVAL / 1000 + 1.5, ease: "easeOut" }}
+              />
+            </Link>
+          </motion.div>
+        </AnimatePresence>
+
+        <div className={classes.vignette} aria-hidden="true"></div>
 
         <button
-          className={`${classes.navButton} ${classes.navButtonRight}`}
-          onClick={handleNextClick}
+          type="button"
+          className={`${classes.navButton} ${classes.prev}`}
+          onClick={prev}
+          aria-label="Prethodni rad"
         >
-          &gt;
+          <HiChevronLeft />
         </button>
+        <button
+          type="button"
+          className={`${classes.navButton} ${classes.next}`}
+          onClick={next}
+          aria-label="Sljedeći rad"
+        >
+          <HiChevronRight />
+        </button>
+
+        <span className={classes.cta} aria-hidden="true">
+          <span className={classes.ctaText}>Pogledajte galeriju</span>
+          <HiArrowUpRight />
+        </span>
+
+        <div className={classes.bottomBar}>
+          <span className={classes.counter} aria-live="polite">
+            <strong>{pad(index + 1)}</strong> / {pad(count)}
+          </span>
+          <div className={classes.dots}>
+            {highlights.map((item, i) => (
+              <button
+                key={item.id}
+                type="button"
+                className={`${classes.dot} ${i < index ? classes.dotDone : ""}`}
+                onClick={() => setIndex(i)}
+                aria-label={`Rad ${i + 1}`}
+                aria-current={i === index ? "true" : undefined}
+              >
+                {i === index && (
+                  <span
+                    key={slide.id}
+                    className={`${classes.fill} ${autoplay ? classes.fillRunning : classes.fillStatic}`}
+                    style={{
+                      animationDuration: `${INTERVAL}ms`,
+                      animationPlayState: paused ? "paused" : "running",
+                    }}
+                    onAnimationEnd={next}
+                  />
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
+    </MotionConfig>
   );
 }

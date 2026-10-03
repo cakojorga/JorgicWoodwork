@@ -1,0 +1,85 @@
+/* 1. Use a more-intuitive box-sizing model */
+*, *::before, *::after {
+  box-sizing: border-box;
+  /* Same static Inter files as rsms.me/inter, self-hosted via next/font (layout.js) */
+  font-family: var(--font-inter), sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+/* 2. Remove default margin */
+*:not(dialog) {
+  margin: 0;
+  line-height: 1.5;
+}
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+body {
+  /* 4. Add accessible line-height */
+  line-height: 1.5;
+  /* 5. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+}
+:root {
+  font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
+}
+/* 6. Improve media defaults */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+/* 7. Inherit fonts for form controls */
+input, button, textarea, select {
+  font: inherit;
+}
+/* 8. Avoid text overflows */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+/* 9. Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+/*
+  10. Create a root stacking context
+*/
+#root, #__next {
+  isolation: isolate;
+}
+
+main {
+  width: 100%;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(59,130,246,0.15), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(37,99,235,0.15), transparent 40%),
+    #020817;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: #e5e7eb;
+  min-height: 100vh;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-x: clip;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px;
+  width: 100%;
+}
+
+/* Leave room for the sticky navbar when scrolling to a section */
+section[id],
+#o-nama-header {
+  scroll-margin-top: 90px;
+}

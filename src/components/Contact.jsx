@@ -11,7 +11,7 @@ export default function Contact() {
       <div className="container">
         <header className={classes.title}>
           <h2 id="kontakt-title" className={classes.title}>
-            Zatražite Ponudu
+            Zatraži Ponudu
           </h2>
         </header>
         <div className={classes.contactContent}>

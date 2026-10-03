@@ -1,126 +1,136 @@
-import React from "react";
-import classes  from"./Footer.module.css";
-import { FaInstagram } from "react-icons/fa";
+"use client";
+
+import classes from "./Footer.module.css";
+import { FaInstagram, FaLinkedin } from "react-icons/fa";
 import { LuPhone } from "react-icons/lu";
 import { MdOutlineMail } from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom";
 import { GrLocation } from "react-icons/gr";
-
-
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { galleryData, galleryPath } from "../utility/galleryData";
+import { useScrollToSection } from "../hooks/useScrollToSection";
 
 export default function Footer() {
+  const { scrollToSection, scrollHomeTop } = useScrollToSection();
+  const pathname = usePathname();
 
-  const navigate = useNavigate();
-
-  const aboutHandler = (e) => {
+  const homeLinkHandler = (e) => {
     e.preventDefault();
-    const target = document.getElementById("o-nama");
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
-    } else {
-      navigate("/#o-nama");
-    }
+    scrollHomeTop();
   };
-
-  const faqHandler = (e) => {
-    e.preventDefault();
-    const target = document.getElementById("faq");
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
-      
-    } else {
-      navigate("/#faq");
-    }
-  };
-
-  async function scrollHomeTop() {
-    const target = document.getElementById("home");
-
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      return;
-    }
-
-    await navigate("/");
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 100));
-    } catch (error) {
-      console.error("Navigation error:", error);
-    }
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
 
   return (
     <footer className={classes.footer}>
       <div className={classes.footerContainer}>
         <div className={classes.footerBrand}>
-          <img
-            src="/logonav.webp"
-            alt="Logo"
-            className={classes.footerLogo}
-            onClick={scrollHomeTop}
-          />
+          <Link href="/" onClick={homeLinkHandler} className={classes.logoLink}>
+            <img
+              src="/logonav.webp"
+              alt="Jorgić Woodwork – početna"
+              className={classes.footerLogo}
+            />
+          </Link>
+          <p className={classes.tagline}>
+            Namještaj i stolarija po mjeri iz Banja Luke. Više od 30 godina
+            iskustva.
+          </p>
 
           <div className={classes.socials}>
             <a
               href="https://www.instagram.com/jorgic_woodwork/"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Instagram"
             >
               <FaInstagram />
             </a>
-            <a
-              href="tel:+38766531274"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="tel:+38766531274" aria-label="Pozovite nas">
               <LuPhone />
             </a>
-            <a
-              href="mailto:info@jorgicwoodwork.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="mailto:dgjorgicbl@gmail.com" aria-label="Pošaljite email">
               <MdOutlineMail />
             </a>
           </div>
         </div>
 
-        <div className={classes.footerLinks}>
-          <h4>Brzi Linkovi</h4>
+        <nav className={classes.footerLinks} aria-label="Brzi linkovi">
+          <h2>Brzi linkovi</h2>
           <button onClick={scrollHomeTop}>Početna</button>
-          <button onClick={aboutHandler}>O nama</button>
-          <button onClick={faqHandler}>FAQ</button>
-        </div>
+          <button onClick={() => scrollToSection("o-nama")}>O nama</button>
+          <button onClick={() => scrollToSection("faq")}>FAQ</button>
+          <button onClick={() => scrollToSection("kontakt")}>
+            Zatraži ponudu
+          </button>
+        </nav>
+
+        <nav
+          className={`${classes.footerLinks} ${classes.footerGallery}`}
+          aria-label="Galerija radova"
+        >
+          <h2>Naši radovi</h2>
+          <ul className={classes.categoryGrid}>
+            {galleryData.map((item) => {
+              const Icon = item.icon;
+              // Also active on the category's later pages (/galerija/<slug>/2)
+              const path = galleryPath(item);
+              const active =
+                pathname === path || pathname.startsWith(`${path}/`);
+              return (
+                <li key={item.id}>
+                  <Link
+                    href={galleryPath(item)}
+                    className={`${classes.categoryLink} ${active ? classes.categoryActive : ""}`}
+                    aria-current={active ? "page" : undefined}
+                  >
+                    <Icon className={classes.categoryIcon} aria-hidden="true" />
+                    <span>{item.title}</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
 
         <div className={classes.footerLinks}>
-          <h4>Informacije</h4>
-          <Link to="/uslovi-koriscenja">Uslovi korišćenja</Link>
-          <Link to="/privatnost">Privatnost</Link>
-        </div>
-        <div className={classes.footerLinks}>
-          <h4>Kontakt</h4>
-          <a href="https://maps.app.goo.gl/FJtjCJqRa6UcNHvW6" target="_blank">
+          <h2>Kontakt</h2>
+          <a
+            href="https://maps.app.goo.gl/FJtjCJqRa6UcNHvW6"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <GrLocation className={classes.contactIcon} /> Bistrica BB
           </a>
-          <a href="mailto:dgjorgicbl@gmail.com" target="_blank">
-            <MdOutlineMail className={classes.contactIcon} />{" "}
+          <a href="mailto:dgjorgicbl@gmail.com">
+            <MdOutlineMail className={classes.contactIcon} />
             dgjorgicbl@gmail.com
           </a>
-          <a href="tel:+38765564232" target="_blank">
+          <a href="tel:+38765564232">
             <LuPhone className={classes.contactIcon} /> +387 65 564 232
           </a>
-          <a href="tel:+38766531274" target="_blank">
+          <a href="tel:+38766531274">
             <LuPhone className={classes.contactIcon} /> +387 66 531 274
           </a>
         </div>
       </div>
 
       <div className={classes.footerBottom}>
-        <p>
-          © {new Date().getFullYear()} Jorgić Woodwork. All rights reserved.
-        </p>
+        <p>© {new Date().getFullYear()} Jorgić Woodwork. Sva prava zadržana.</p>
+        
+        <div className={classes.legalLinks}>
+          <Link href="/uslovi-koriscenja">Uslovi korišćenja</Link>
+          <span aria-hidden="true">·</span>
+          <Link href="/privatnost">Privatnost</Link>
+          <span aria-hidden="true">·</span>
+          <a
+            href="https://www.linkedin.com/in/marko-jorgic/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={classes.credit}
+          >
+            Izradio
+            <FaLinkedin className={classes.creditIcon} aria-hidden="true" />
+          </a>
+        </div>
       </div>
     </footer>
   );
