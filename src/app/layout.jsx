@@ -12,9 +12,8 @@ import { SITE_URL, SITE_NAME } from "../utility/site";
 import { businessSchema, websiteSchema } from "../lib/structuredData";
 import ogImage from "../assets/highlights/kuhinja-sank-1600.webp";
 
-// The same static Inter files the site loaded from rsms.me/inter, self-hosted.
-// Not preloaded: every page would preload all five weights, and the ones a page
-// doesn't use trigger "preloaded but not used" warnings (display: swap covers the wait).
+// The same static Inter files the site loaded from rsms.me/inter,
+// now self-hosted and preloaded by Next.js.
 const inter = localFont({
   src: [
     { path: "../fonts/Inter-ExtraLight.woff2", weight: "200", style: "normal" },
@@ -25,7 +24,6 @@ const inter = localFont({
   ],
   variable: "--font-inter",
   display: "swap",
-  preload: false,
 });
 
 const DEFAULT_TITLE = "Jorgić Woodwork | Namještaj po mjeri, kuhinje, ormari i stolarija";
