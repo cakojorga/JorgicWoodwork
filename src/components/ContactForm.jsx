@@ -283,7 +283,6 @@ export default function ContactForm() {
             sitekey={HCAPTCHA_SITEKEY}
             reCaptchaCompat={false}
             theme="dark"
-            languageOverride="bs"
             onVerify={(token) => {
               setCaptchaToken(token);
               setErrors((prev) => ({ ...prev, captcha: undefined }));
