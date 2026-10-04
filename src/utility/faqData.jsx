@@ -3,12 +3,12 @@ export const faqs = [
   {
     question: "Da li izrađujete namještaj po mjeri?",
     answer:
-      "Da, izrađujemo kuhinje, plakare, vrata, stepenice, krevete i ostale proizvode potpuno prilagođene tvom prostoru i željama.",
+      "Da, izrađujemo kuhinje, plakare, vrata, stepenice, krevete i ostale proizvode potpuno prilagođene Vašem prostoru i željama.",
   },
   {
     question: "Da li vršite izlazak na teren i mjerenje?",
     answer:
-      "Da, dolazimo na adresu radi mjerenja prostora, savjetovanja oko izbora materijala i izrade ponude, kako bismo osigurali da finalni proizvod savršeno odgovara tvom prostoru.",
+      "Da, dolazimo na adresu radi mjerenja prostora, savjetovanja oko izbora materijala i izrade ponude, kako bismo osigurali da finalni proizvod savršeno odgovara Vašem prostoru.",
   },
   {
     question: "Koliko traje izrada namještaja?",

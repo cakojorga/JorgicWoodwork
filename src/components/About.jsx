@@ -103,7 +103,7 @@ export default function About() {
                 variants={itemVariants}
                 className={classes.highlightItemCenter}
               >
-                <span>Dizajn po tvojoj mjeri</span>
+                <span>Dizajn po Vašoj mjeri</span>
                 <MdDesignServices className={classes.highlightIcon} />
                 <p className={classes.highlightText}>
                   <span>Funkcionalno, dugotrajno i vizuelno skladno.</span>
