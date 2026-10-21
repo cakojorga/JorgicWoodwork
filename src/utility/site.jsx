@@ -4,7 +4,15 @@ export const SITE_NAME = "Jorgić Woodwork";
 
 export const business = {
   name: SITE_NAME,
-  alternateName: "Jorgic Woodwork",
+  // Other names people type into Google for this business (with and without "ć")
+  alternateName: [
+    "Jorgic Woodwork",
+    "Jorgić",
+    "Jorgic",
+    "Stolarija Jorgić",
+    "Stolarija Jorgic",
+    "Jorgić stolarija Banja Luka",
+  ],
   description:
     "Stolarska radionica iz Banja Luke sa više od 30 godina iskustva. Izrada kuhinja, ormara, vrata, stepenica, kreveta i ostalog namještaja po mjeri.",
   logo: `${SITE_URL}/logonav.png`,
@@ -18,3 +26,7 @@ export const business = {
   map: "https://maps.app.goo.gl/FJtjCJqRa6UcNHvW6",
   instagram: "https://www.instagram.com/jorgic_woodwork/",
 };
+
+// "+38765564232" -> "+387 65 564 232"
+export const formatPhone = (phone) =>
+  phone.replace(/^(\+\d{3})(\d{2})(\d{3})(\d{3})$/, "$1 $2 $3 $4");

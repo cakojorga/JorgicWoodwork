@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { galleryData, galleryPath } from "../utility/galleryData";
 import { useScrollToSection } from "../hooks/useScrollToSection";
+import { lockScroll, unlockScroll } from "../utility/smoothScroll";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
 
 const ArrowIcon = ({ isOpen }) => {
@@ -56,30 +57,55 @@ export default function Navbar() {
     setIsHovered(false)
   }
 
+  // Unlock synchronously, before any scroll: a stopped Lenis ignores scrollTo
   function closeMobileMenu() {
+    if (mobileOpen) unlockScroll();
     setMobileOpen(false);
     setIsHovered(false);
   }
 
+  function toggleMobileMenu() {
+    if (mobileOpen) {
+      closeMobileMenu();
+    } else {
+      lockScroll();
+      setMobileOpen(true);
+    }
+  }
+
+  // Escape closes the menu; so does widening the window past the mobile layout
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onKey = (e) => e.key === "Escape" && closeMobileMenu();
+    const desktop = window.matchMedia("(min-width: 901px)");
+    const onResize = () => desktop.matches && closeMobileMenu();
+    window.addEventListener("keydown", onKey);
+    desktop.addEventListener("change", onResize);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      desktop.removeEventListener("change", onResize);
+    };
+  });
+
   function goToSection(id) {
     return (e) => {
       e.preventDefault();
-      scrollToSection(id);
       closeMobileMenu();
+      scrollToSection(id);
     };
   }
 
   function goHome(e) {
     e.preventDefault();
-    scrollHomeTop();
     closeMobileMenu();
+    scrollHomeTop();
   }
 
   return (
     <nav
       className={`${
         isHomeOrGallery && !scrolled ? classes.transparentNav : classes.solidNav
-      } ${scrolled ? classes.scrolledNav : ""}`}
+      } ${scrolled ? classes.scrolledNav : ""} ${mobileOpen ? classes.menuOpen : ""}`}
     >
       <div className={classes.navContainer}>
         <Link href="/" onClick={goHome} className={classes.logoLink}>
@@ -92,7 +118,7 @@ export default function Navbar() {
 
         <button
           className={classes.hamburger}
-          onClick={() => setMobileOpen((prev) => !prev)}
+          onClick={toggleMobileMenu}
           aria-label={mobileOpen ? "Zatvori meni" : "Otvori meni"}
           aria-expanded={mobileOpen}
           aria-controls="main-menu"
@@ -102,6 +128,7 @@ export default function Navbar() {
 
         <ul
           id="main-menu"
+          data-lenis-prevent
           className={`${classes.navbarLinks} ${
             mobileOpen ? classes.mobileActive : ""
           }`}

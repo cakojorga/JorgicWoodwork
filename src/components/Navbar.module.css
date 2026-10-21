@@ -22,10 +22,33 @@
   transition: background-color 0.5s ease, padding 0.3s ease;
 }
 
+/* Mobile menu open: solid bar so it joins the menu panel below */
+.menuOpen {
+  background-color: #020817;
+}
+
 .scrolledNav {
   background: rgba(2, 8, 23, 0.98);
     backdrop-filter: blur(18px);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+/* Hairline along the bottom, fading out at both ends */
+.transparentNav::after,
+.solidNav::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.16) 20%,
+    rgba(255, 255, 255, 0.16) 80%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  pointer-events: none;
 }
 
 .navContainer {
@@ -36,7 +59,22 @@
   max-width: 1250px;
 }
 
+/* Orange accent on the bottom hairline, at the content's left edge
+   (lines up with the hero's guide line and stats bar). On the logo, not the
+   container: a positioned container would trap the mobile menu inside it. */
+.logoLink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -14px;
+  width: 64px;
+  height: 1px;
+  background: #ff6347;
+  pointer-events: none;
+}
+
 .logoLink {
+  position: relative;
   display: block;
   width: 100%;
   max-width: 140px;
@@ -113,6 +151,20 @@
   position: relative;
 }
 
+/* Short vertical hairlines between the menu items (halfway into the 36px gap) */
+.menuItem + .menuItem > a::before,
+.dropdownWrapper::before {
+  content: "";
+  position: absolute;
+  left: -18px;
+  top: 50%;
+  width: 1px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
 .menuItem {
   display: contents;
 }
@@ -145,8 +197,12 @@
   position: absolute;
   top: 130%;
   left: -10px;
+  /* Above the navbar's bottom hairline (::after), which comes later in the
+     markup and would otherwise be painted across the open menu */
+  z-index: 2;
 
-  background: rgba(15, 23, 42, 0.95);
+  /* Opaque, so the hero's guide lines and photo don't show through */
+  background: rgb(15, 23, 42);
   backdrop-filter: blur(16px);
 
   border: 1px solid rgba(255,255,255,0.05);
@@ -190,7 +246,9 @@
   }
   
 
-  .navbarLinks a::after {   
+  .navbarLinks a::after,
+  .navbarLinks a::before,
+  .dropdownWrapper::before {
      display: none;
   }
   
@@ -202,22 +260,24 @@
     justify-content: center;
   }
 
+  /* Full-screen panel under the bar */
   .navbarLinks {
     position: absolute;
     top: 100%;
     left: 0;
-
+    right: 0;
     width: 100%;
+    height: calc(100vh - 105px);
+    height: calc(100dvh - 105px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
 
-    background: rgba(2, 8, 23, 0.98);
-    backdrop-filter: blur(18px);
+    background: #020817;
 
     flex-direction: column;
-    align-items: flex-start;
-
-    padding: 24px;
-
-    gap: 24px;
+    align-items: stretch;
+    gap: 0;
+    padding: 8px 24px 40px;
 
     opacity: 0;
     visibility: hidden;
@@ -235,14 +295,52 @@
     transform: translateY(0);
   }
 
-  .dropdown {
-    position: static;
-    margin-top: 16px;
+  /* Big rows split by hairlines */
+  .navbarLinks a,
+  .dropdownContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
+    padding: 20px 0;
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: #ffffff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   .dropdownWrapper {
     width: 100%;
+  }
+
+  /* Gallery categories: plain two-column list, no floating box */
+  .dropdown {
+    position: static;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 16px;
+    min-width: 0;
+    margin: 0;
+    padding: 14px 0 20px;
+    background: none;
+    backdrop-filter: none;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .navbarLinks .dropdown li a {
+    padding: 10px 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgba(229, 231, 235, 0.75);
+    border-bottom: none;
+  }
+
+  .navbarLinks .dropdown li a:hover {
+    color: #ff6347;
   }
 
   .dropdownWrapper::after {

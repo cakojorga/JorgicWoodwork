@@ -12,7 +12,7 @@ import { pageMetadata } from "../lib/metadata";
 export const metadata = pageMetadata({
   absoluteTitle: "Jorgić Woodwork | Namještaj po mjeri, kuhinje, ormari i stolarija",
   description:
-    "Jorgić Woodwork izrađuje kuhinje, ormare, krevete, vrata, prozore, stepenice i ostalu stolariju po mjeri u Banjoj Luci i okolini. Kvalitetna izrada i više od 30 godina iskustva.",
+    "Stolarija Jorgić (Jorgić Woodwork) iz Banja Luke izrađuje kuhinje, ormare, krevete, vrata, prozore, stepenice i ostalu stolariju po mjeri. Više od 30 godina iskustva.",
   path: "/",
 });
 
@@ -20,9 +20,7 @@ export default function Home() {
   return (
     <>
       <HashScroll />
-      <div className="container">
-        <Hero />
-      </div>
+      <Hero />
       <About />
       <Gallery />
       <Faq />

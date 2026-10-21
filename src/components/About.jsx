@@ -4,6 +4,7 @@ import classes from "./About.module.css";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { FiTool } from "react-icons/fi";
+import { HiArrowRight } from "react-icons/hi2";
 import { MdDesignServices, MdOutlineWorkspacePremium } from "react-icons/md";
 import { galleryData, galleryPath } from "../utility/galleryData";
 
@@ -31,6 +32,24 @@ const itemVariants = {
 };
 
 
+
+const WHY_US = [
+  {
+    title: "Precizna izrada",
+    text: "Uz pažnju na detalje i čiste završne obrade.",
+    Icon: FiTool,
+  },
+  {
+    title: "Dizajn po Vašoj mjeri",
+    text: "Funkcionalno, dugotrajno i vizuelno skladno.",
+    Icon: MdDesignServices,
+  },
+  {
+    title: "Iskustvo 30+ godina",
+    text: "Izrada namještaja i stolarije u Banja Luci i okolini.",
+    Icon: MdOutlineWorkspacePremium,
+  },
+];
 
 export default function About() {
 
@@ -70,9 +89,31 @@ export default function About() {
                 {galleryData.map((item) => (
                   <motion.li key={item.id} variants={itemVariants}>
                     <Link href={galleryPath(item)} className={classes.link}>
-                      {item.title}
-                      <span className={classes.icon}>
-                        <item.icon />
+                      <span className={classes.cardMedia}>
+                        {/* Photo and its tint zoom together as one layer */}
+                        <span className={classes.cardZoom}>
+                          <img
+                            src={item.cover.src}
+                            width={item.cover.width}
+                            height={item.cover.height}
+                            alt=""
+                            loading="lazy"
+                            decoding="async"
+                            className={classes.cardImage}
+                            style={{ objectPosition: item.coverPosition }}
+                          />
+                        </span>
+                        <span className={classes.cardIcon} aria-hidden="true">
+                          <item.icon />
+                        </span>
+                      </span>
+                      <span className={classes.cardBody}>
+                        <span className={classes.cardTitle}>{item.title}</span>
+                        <span className={classes.cardText}>{item.description}</span>
+                        <span className={classes.cardCta} aria-hidden="true">
+                          Pogledaj radove
+                          <HiArrowRight />
+                        </span>
                       </span>
                     </Link>
                   </motion.li>
@@ -89,40 +130,24 @@ export default function About() {
               viewport={{ once: true, amount: 0.2 }}
               variants={containerVariants}
             >
-              <motion.li
-                variants={itemVariants}
-                className={classes.highlightItemLeft}
-              >
-                <span>Precizna izrada</span>
-                <FiTool className={classes.highlightIcon} />
-                <p className={classes.highlightText}>
-                  <span> Uz pažnju na detalje i čiste završne obrade.</span>
-                </p>
-              </motion.li>
-              <motion.li
-                variants={itemVariants}
-                className={classes.highlightItemCenter}
-              >
-                <span>Dizajn po Vašoj mjeri</span>
-                <MdDesignServices className={classes.highlightIcon} />
-                <p className={classes.highlightText}>
-                  <span>Funkcionalno, dugotrajno i vizuelno skladno.</span>
-                </p>
-              </motion.li>
-              <motion.li
-                variants={itemVariants}
-                className={classes.highlightItemRight}
-              >
-                <span className={classes.highlightTextHeader}>
-                  Iskustvo 30+ godina
-                </span>
-                <MdOutlineWorkspacePremium className={classes.highlightIcon} />
-                <p className={classes.highlightText}>
-                  <span>
-                    Izrada namještaja i stolarije u Banja Luci i okolini.
-                  </span>
-                </p>
-              </motion.li>
+              {WHY_US.map(({ title, text, Icon }, i) => (
+                <motion.li
+                  key={title}
+                  variants={itemVariants}
+                  className={classes.highlightItem}
+                >
+                  <div className={classes.highlightTop}>
+                    <span className={classes.highlightIcon} aria-hidden="true">
+                      <Icon />
+                    </span>
+                    <span className={classes.highlightNumber} aria-hidden="true">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                  </div>
+                  <h3 className={classes.highlightTitle}>{title}</h3>
+                  <p className={classes.highlightText}>{text}</p>
+                </motion.li>
+              ))}
             </motion.ul>
 
             <motion.div

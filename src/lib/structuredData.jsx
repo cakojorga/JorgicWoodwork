@@ -46,6 +46,8 @@ export const websiteSchema = {
   "@type": "WebSite",
   "@id": abs("/#website"),
   name: SITE_NAME,
+  // Google reads the site name shown in results from here
+  alternateName: business.alternateName,
   url: SITE_URL,
   inLanguage: "bs",
   publisher: { "@id": abs("/#business") },

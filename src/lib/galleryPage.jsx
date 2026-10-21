@@ -109,6 +109,7 @@ export async function renderGalleryPage(slug, pageParam) {
         images={pageImages}
         currentPage={currentPage}
         totalPages={totalPages}
+        totalImages={images.length}
         startIndex={startIndex}
         pageTitle={`${pageTitle(category, currentPage)} | ${SITE_NAME}`}
       />

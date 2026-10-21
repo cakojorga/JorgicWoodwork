@@ -1,82 +1,321 @@
-.faqContent {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 80px 0;
-}
 .faq {
-    background: rgba(2, 8, 23, 0.8);
+  position: relative;
+  background: rgba(2, 8, 23, 0.8);
   backdrop-filter: blur(20px);
 }
-.faqGrid {
+
+/* Soft warm glow behind the title column */
+.faq::before {
+  content: "";
+  position: absolute;
+  top: 10%;
+  left: 0;
+  width: 520px;
+  height: 520px;
+  max-width: 100%;
+  background: radial-gradient(circle, rgba(255, 99, 71, 0.08), transparent 65%);
+  pointer-events: none;
+}
+
+.faqContent {
+  position: relative;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 20px;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 110px 0;
 }
 
-.faqItem {
-  font-family: var(--font-inter), sans-serif;
-  font-size: 1rem;
-  line-height: 1.7;
-  color: rgba(229, 231, 235, 0.9);
-
-  background: rgba(15, 23, 42, 0.6);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 14px;
-  padding: 1.1rem 1.2rem;
-  box-shadow:
-    0 4px 20px rgba(0,0,0,0.35),
-    inset 0 1px 0 rgba(255,255,255,0.05);
-  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+/* Left column: stays in view while the questions scroll past */
+.intro {
+  position: sticky;
+  top: 140px;
+  align-self: start;
 }
 
-.faqItem:hover {
-  background: rgba(15, 23, 42, 0.8);
-  border-color: rgba(255, 255, 255, 0.12);
-  box-shadow:
-    0 6px 30px rgba(0,0,0,0.45),
-    inset 0 1px 0 rgba(255,255,255,0.08);
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 22px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(229, 231, 235, 0.7);
 }
 
-.faqItem h3 {
-  font-size: 1.25rem;
-  margin: 0 0 0.75rem;
-  color: #e5e7eb;
-}
-
-.faqItem p {
-  margin: 0;
+.eyebrow::before {
+  content: "";
+  width: 40px;
+  height: 1px;
+  background: #ff6347;
 }
 
 .title {
-  font-family: "Poppins", sans-serif;
-  font-size: 2.5rem;
-  text-align: center;
-  color: #ff6347;
-  margin-bottom: 1.5rem;
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  color: #ffffff;
 }
 
+.title span {
+  color: #ff6347;
+}
 
-/* Responsive */
-@media (max-width: 768px) {
+.lead {
+  margin-top: 22px;
+  max-width: 400px;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: rgba(229, 231, 235, 0.7);
+}
 
-  .title {
-    font-size: 1.9rem;
-    
-  }
+.contactLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 32px;
+  padding: 0 0 6px;
+  border: none;
+  border-bottom: 1px solid rgba(255, 99, 71, 0.5);
+  background: none;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
 
+.contactLink svg {
+  color: #ff6347;
+  transition: transform 0.2s ease;
+}
+
+.contactLink:hover {
+  border-color: #ff6347;
+}
+
+.contactLink:hover svg {
+  transform: translateX(4px);
+}
+
+/* Right column: accordion separated by hairlines */
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.item {
+  position: relative;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Orange line that runs along the bottom of the open question */
+.item::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 0;
+  height: 1px;
+  background: #ff6347;
+  transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.item.open::after {
+  width: 100%;
+}
+
+.question {
+  margin: 0;
+  font: inherit;
+}
+
+.trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 30px 4px;
+  border: none;
+  background: none;
+  font: inherit;
+  text-align: left;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.trigger:focus-visible {
+  outline: 2px solid #ff6347;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.number {
+  flex-shrink: 0;
+  width: 28px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: rgba(229, 231, 235, 0.4);
+  transition: color 0.3s ease;
+}
+
+.questionText {
+  flex: 1;
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  color: rgba(255, 255, 255, 0.85);
+  transition: color 0.3s ease;
+}
+
+.trigger:hover .questionText,
+.open .questionText {
+  color: #ffffff;
+}
+
+.open .number,
+.trigger:hover .number {
+  color: #ff6347;
+}
+
+/* Round plus that turns into a minus */
+.toggle {
+  position: relative;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 50%;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.toggle::before,
+.toggle::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 1.5px;
+  background: #ffffff;
+  border-radius: 1px;
+  transform: translate(-50%, -50%);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.toggle::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.trigger:hover .toggle {
+  border-color: rgba(255, 99, 71, 0.7);
+}
+
+.open .toggle {
+  background: #ff6347;
+  border-color: #ff6347;
+  transform: rotate(180deg);
+}
+
+.open .toggle::after {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+/* Height animation without measuring: grid row goes from 0fr to 1fr */
+.panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.open .panel {
+  grid-template-rows: 1fr;
+}
+
+.panelInner {
+  overflow: hidden;
+}
+
+.answer {
+  margin: 0;
+  padding: 0 64px 32px 56px;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: rgba(229, 231, 235, 0.72);
+  opacity: 0;
+  transform: translateY(-6px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.open .answer {
+  opacity: 1;
+  transform: none;
+  transition-delay: 0.1s;
+}
+
+@media (max-width: 900px) {
   .faqContent {
-    padding: 0 24px;
-  }
-
-  .faqItem h3 {
-    font-size: 1.1rem;
-  }
-
-  .faqGrid {
     grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 72px 4px;
+  }
+
+  .intro {
+    position: static;
+  }
+
+  .faq::before {
+    width: 320px;
+    height: 320px;
+  }
+}
+
+@media (max-width: 560px) {
+  .trigger {
+    gap: 14px;
+    padding: 24px 0;
+  }
+
+  .number {
+    width: 22px;
+  }
+
+  .questionText {
+    font-size: 1.05rem;
+  }
+
+  .toggle {
+    width: 34px;
+    height: 34px;
+  }
+
+  .answer {
+    padding: 0 0 26px 36px;
+    font-size: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel,
+  .answer,
+  .toggle,
+  .toggle::before,
+  .toggle::after,
+  .item::after {
+    transition: none;
   }
 }

@@ -48,13 +48,16 @@ export function scrollToTop({ immediate = false } = {}) {
   }
 }
 
-// Modals call these so the page behind them can't scroll
+// Modals and the mobile menu call these so the page behind them can't scroll.
+// On <html>, not <body>: Lenis puts overflow: clip on <html> while stopped, and
+// then a hidden <body> becomes its own scroll box and the sticky navbar
+// jumps back to the top of the page.
 export function lockScroll() {
   lenis?.stop();
-  document.body.style.overflow = "hidden";
+  document.documentElement.style.overflow = "hidden";
 }
 
 export function unlockScroll() {
   lenis?.start();
-  document.body.style.overflow = "";
+  document.documentElement.style.overflow = "";
 }

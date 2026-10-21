@@ -5,10 +5,23 @@ import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { HiArrowRight, HiChevronLeft, HiChevronRight, HiXMark } from "react-icons/hi2";
+import { HiOutlineArrowsExpand } from "react-icons/hi";
+import { LuPhone } from "react-icons/lu";
 import { useSwipeable } from "react-swipeable";
 import classes from "./Galerija.module.css";
 import { lockScroll, unlockScroll } from "../utility/smoothScroll";
+import { galleryData, galleryPath } from "../utility/galleryData";
+import { business, formatPhone } from "../utility/site";
+
+// "1 fotografija", "3 fotografije", "12 fotografija"
+function photoCount(n) {
+  const last = n % 10;
+  const lastTwo = n % 100;
+  if (last >= 2 && last <= 4 && (lastTwo < 12 || lastTwo > 14)) return `${n} fotografije`;
+  return `${n} fotografija`;
+}
 
 // While the full-size photo loads, the lightbox already shows the thumbnail
 // (cached from the grid) blown up and blurred, at the photo's real shape, with
@@ -52,7 +65,7 @@ function LightboxImage({ thumb, src, alt, onError }) {
 // Photo grid, lightbox and pagination for one gallery category.
 // The page's photos are loaded on the server (lib/galleryPage.jsx),
 // so they are already in the HTML for visitors and search engines.
-export default function GalleryView({ category, images, currentPage, totalPages, startIndex, pageTitle }) {
+export default function GalleryView({ category, images, currentPage, totalPages, totalImages, startIndex, pageTitle }) {
   // Next.js 16 doesn't refresh <title> when only ?page changes after an
   // in-app navigation; the server HTML (what search engines read) is correct.
   useEffect(() => {
@@ -143,6 +156,39 @@ export default function GalleryView({ category, images, currentPage, totalPages,
   const pagePath = (page) => (page === 1 ? basePath : `${basePath}/${page}`);
   const imageLabel = (index) => `${category.title} – slika ${startIndex + index + 1}`;
 
+  // Category row: on phones it's one sideways-scrolling line (Galerija.module.css).
+  // `more` says on which side there are still hidden categories, which turns on
+  // the fade and arrow on that side so it's obvious the row can be scrolled.
+  const chipRowRef = useRef(null);
+  const [more, setMore] = useState({ left: false, right: false });
+
+  function updateMore() {
+    const row = chipRowRef.current;
+    if (!row) return;
+    const { scrollLeft, scrollWidth, clientWidth } = row;
+    // 4px tolerance: browsers can stop a pixel short of the very end
+    setMore({ left: scrollLeft > 4, right: scrollLeft + clientWidth < scrollWidth - 4 });
+  }
+
+  function scrollChips(direction) {
+    chipRowRef.current?.scrollBy({ left: direction * 160, behavior: "smooth" });
+  }
+
+  useEffect(() => {
+    const row = chipRowRef.current;
+    // Start with the current category in the middle of the row
+    const active = row?.querySelector("[aria-current='page']");
+    if (row && active) {
+      row.scrollLeft = active.offsetLeft - (row.clientWidth - active.offsetWidth) / 2;
+    }
+    updateMore();
+    // Rotating the phone / resizing changes whether the row overflows at all
+    window.addEventListener("resize", updateMore);
+    return () => window.removeEventListener("resize", updateMore);
+  }, []);
+
+  const phone = business.phones[0];
+
   return (
     <div className="container">
       <div className={classes.pageSettings}>
@@ -158,19 +204,25 @@ export default function GalleryView({ category, images, currentPage, totalPages,
             }}
             data-lenis-prevent
           >
-            <button className={classes.arrowButton} onClick={goPrev} aria-label="Prethodna slika">
-              {"<"}
-            </button>
-
-            <div className={classes.modalContent} {...handlers}>
+            <div className={classes.modalBar}>
+              <span className={classes.modalCounter}>
+                {currentIndex + 1} / {currentImages.length}
+              </span>
               <button
                 className={classes.closeButton}
                 onClick={closeModal}
                 aria-label="Zatvori"
                 autoFocus
               >
-                X
+                <HiXMark aria-hidden="true" />
               </button>
+            </div>
+
+            <button className={classes.arrowButton} onClick={goPrev} aria-label="Prethodna slika">
+              <HiChevronLeft aria-hidden="true" />
+            </button>
+
+            <div className={classes.modalContent} {...handlers}>
               <LightboxImage
                 key={selectedImage}
                 thumb={currentImages[currentIndex]?.thumb}
@@ -184,14 +236,93 @@ export default function GalleryView({ category, images, currentPage, totalPages,
               />
             </div>
             <button className={classes.arrowButton} onClick={goNext} aria-label="Sljedeća slika">
-              {">"}
+              <HiChevronRight aria-hidden="true" />
             </button>
           </div>
         )}
 
-        <h1 className={classes.title}>{category.title}</h1>
-        <div className={classes.line} aria-hidden="true"></div>
-        <p className={classes.description}>{category.description}</p>
+        <header className={classes.header}>
+          <nav aria-label="Putanja" className={classes.breadcrumb}>
+            <ol>
+              <li>
+                <Link href="/">Početna</Link>
+              </li>
+              <li>
+                <Link href="/#o-nama">Galerija</Link>
+              </li>
+              <li aria-current="page">{category.title}</li>
+            </ol>
+          </nav>
+
+          <div className={classes.headerRow}>
+            <div className={classes.headerText}>
+              <h1 className={classes.title}>{category.title}</h1>
+              <p className={classes.description}>{category.description}</p>
+              {totalImages > 0 && (
+                <>
+                  <p className={classes.meta}>
+                    <span>{photoCount(totalImages)}</span>
+                    {totalPages > 1 && <span>strana {currentPage} od {totalPages}</span>}
+                  </p>
+                  <p className={classes.hint}>
+                    <HiOutlineArrowsExpand aria-hidden="true" />
+                    Kliknite na fotografiju da je uvećate
+                  </p>
+                </>
+              )}
+            </div>
+            <Link href="/#kontakt" className={classes.headerCta}>
+              Zatraži ponudu
+              <HiArrowRight aria-hidden="true" />
+            </Link>
+          </div>
+
+          {/* Jump straight to another category */}
+          <nav
+            aria-label="Kategorije"
+            className={classes.categoryNav}
+            data-more-left={more.left || undefined}
+            data-more-right={more.right || undefined}
+          >
+            {/* Arrows only help with scrolling; the links themselves are reachable
+                by keyboard, so the arrows stay out of the tab order */}
+            <button
+              type="button"
+              className={`${classes.scrollHint} ${classes.scrollHintLeft}`}
+              onClick={() => scrollChips(-1)}
+              tabIndex={-1}
+              aria-hidden="true"
+            >
+              <HiChevronLeft />
+            </button>
+            <button
+              type="button"
+              className={`${classes.scrollHint} ${classes.scrollHintRight}`}
+              onClick={() => scrollChips(1)}
+              tabIndex={-1}
+              aria-hidden="true"
+            >
+              <HiChevronRight />
+            </button>
+            <ul ref={chipRowRef} onScroll={updateMore} data-lenis-prevent>
+              {galleryData.map((item) => {
+                const active = item.slug === category.slug;
+                return (
+                  <li key={item.id}>
+                    <Link
+                      href={galleryPath(item)}
+                      className={`${classes.chip} ${active ? classes.chipActive : ""}`}
+                      aria-current={active ? "page" : undefined}
+                    >
+                      <item.icon aria-hidden="true" />
+                      {item.title}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+        </header>
 
         <div className={classes.galleryContainer}>
           {/* A category whose Firebase folder is still empty */}
@@ -207,17 +338,25 @@ export default function GalleryView({ category, images, currentPage, totalPages,
             >
               {currentImages.map((image, index) => (
                 <ImageListItem key={image.name} className={classes.imageItem}>
-                  <img
-                    src={image.thumb}
-                    alt={imageLabel(index)}
-                    className={classes.image}
+                  <button
+                    type="button"
+                    className={classes.imageButton}
                     onClick={() => {
                       setSelectedImage(image.original);
                       setOpened(true);
                     }}
-                    loading={index < 3 ? "eager" : "lazy"}
-                    fetchPriority={index < 3 ? "high" : undefined}
-                  />
+                  >
+                    <img
+                      src={image.thumb}
+                      alt={imageLabel(index)}
+                      className={classes.image}
+                      loading={index < 3 ? "eager" : "lazy"}
+                      fetchPriority={index < 3 ? "high" : undefined}
+                    />
+                    <span className={classes.zoomHint} aria-hidden="true">
+                      <HiOutlineArrowsExpand />
+                    </span>
+                  </button>
                 </ImageListItem>
               ))}
             </ImageList>
@@ -273,6 +412,28 @@ export default function GalleryView({ category, images, currentPage, totalPages,
             </nav>
           )}
         </div>
+
+        {/* Next step after browsing: ask for an offer or call */}
+        <aside className={classes.ctaBand}>
+          <div className={classes.ctaCopy}>
+            <p className={classes.ctaEyebrow}>Po mjeri Vašeg prostora</p>
+            <h2 className={classes.ctaTitle}>Želite slično rješenje?</h2>
+            <p className={classes.ctaText}>
+              Pošaljite nam upit ili nas pozovite. Dolazimo na mjerenje i
+              predlažemo rješenje prema Vašim željama.
+            </p>
+          </div>
+          <div className={classes.ctaActions}>
+            <Link href="/#kontakt" className={classes.ctaPrimary}>
+              Zatraži ponudu
+              <HiArrowRight aria-hidden="true" />
+            </Link>
+            <a href={`tel:${phone}`} className={classes.ctaPhone}>
+              <LuPhone aria-hidden="true" />
+              {formatPhone(phone)}
+            </a>
+          </div>
+        </aside>
       </div>
     </div>
   );
