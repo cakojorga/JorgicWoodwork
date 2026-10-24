@@ -109,6 +109,22 @@
   color: #ffffff;
 }
 
+/* The label sits inside the <h1>: its own line, at its own size and line
+   height (sizes are in rem, so the h1's huge font doesn't scale them) */
+.heroTitle .eyebrow {
+  display: flex;
+  width: fit-content;
+  line-height: 1.5;
+}
+
+/* "Unaprijedi svoj dom": a block, so it starts on the line below the label
+   and the fade-in can move it (transforms don't apply to inline elements) */
+.titleMain {
+  display: block;
+  /* globals.css gives every element line-height 1.5; take the h1's tight 1 */
+  line-height: inherit;
+}
+
 .highlight {
   position: relative;
   display: inline-block;

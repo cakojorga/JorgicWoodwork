@@ -33,7 +33,7 @@ const itemVariants = {
 
 export default function Faq() {
   // First question starts open so the section never looks empty
-  const [openIndex, setOpenIndex] = useState(0);
+  const [openIndex, setOpenIndex] = useState(null);
   const { scrollToSection } = useScrollToSection();
   const baseId = useId();
 

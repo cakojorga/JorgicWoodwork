@@ -15,9 +15,15 @@ export function proxy(request) {
   const oldCase = pathname.startsWith("/Galerija/");
   if (!oldCase && !pathname.startsWith("/galerija/")) return NextResponse.next();
 
-  const [slugParam = "", pageParam] = decodeURIComponent(pathname.slice("/galerija/".length))
-    .replace(/\/+$/, "")
-    .split("/");
+  // A malformed address like /Galerija/%E0 makes decodeURIComponent throw; let
+  // it fall through to the normal 404 instead of crashing with a 500
+  let decoded;
+  try {
+    decoded = decodeURIComponent(pathname.slice("/galerija/".length));
+  } catch {
+    return NextResponse.next();
+  }
+  const [slugParam = "", pageParam] = decoded.replace(/\/+$/, "").split("/");
   const current = findCategory(slugParam);
   const category = current ?? findLegacyItem(slugParam);
 

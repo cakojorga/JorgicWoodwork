@@ -29,13 +29,17 @@ export async function GET(request, { params }) {
     cache: "force-cache",
     next: { revalidate: 2592000 },
   });
-  if (!upstream.ok) {
+  // Only ever pass on images. Whatever is stored in the bucket is served from
+  // OUR domain here, so a non-image file (e.g. HTML or SVG with a script) would
+  // run as part of the site; SVG is excluded for the same reason.
+  const contentType = upstream.headers.get("content-type") ?? "";
+  if (!upstream.ok || !/^image\/(jpeg|png|webp)$/i.test(contentType)) {
     return new Response("Not found", { status: 404 });
   }
 
   return new Response(await upstream.arrayBuffer(), {
     headers: {
-      "Content-Type": upstream.headers.get("content-type") ?? "image/jpeg",
+      "Content-Type": contentType,
       // Browsers keep it for a day, the CDN for 30 days (refreshed in the background)
       "Cache-Control": "public, max-age=86400, s-maxage=2592000, stale-while-revalidate=86400",
     },

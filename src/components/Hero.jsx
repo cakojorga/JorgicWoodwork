@@ -42,30 +42,34 @@ export default function Hero() {
 
       <div className={classes.inner}>
         <div className={classes.heroContent}>
-          <p {...fadeUp(0)} className={`${classes.eyebrow} ${classes.fadeUp}`}>
-            Stolarija Jorgić · Banja Luka
-          </p>
-
-          <h1 id="home-title" {...fadeUp(0.05)} className={`${classes.heroTitle} ${classes.fadeUp}`}>
-            Unaprijedi svoj{" "}
-            <span className={classes.highlight}>
-              dom
-              <svg
-                className={classes.underline}
-                viewBox="0 0 120 14"
-                preserveAspectRatio="none"
-                aria-hidden="true"
-              >
-                <path
-                  d="M3 9.5C28 4 62 2.5 117 6.5"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="5"
-                  strokeLinecap="round"
-                  pathLength="1"
-                  className={classes.underlinePath}
-                />
-              </svg>
+          {/* The small label is part of the <h1> (not a separate <p>) so the page's
+              main heading also names the business, the trade and the city,
+              which is what Google weighs most when deciding what the page is about */}
+          <h1 id="home-title" className={classes.heroTitle}>
+            <span {...fadeUp(0)} className={`${classes.eyebrow} ${classes.fadeUp}`}>
+              Stolarija Jorgić · Banja Luka
+            </span>
+            <span {...fadeUp(0.05)} className={`${classes.titleMain} ${classes.fadeUp}`}>
+              Unaprijedi svoj{" "}
+              <span className={classes.highlight}>
+                dom
+                <svg
+                  className={classes.underline}
+                  viewBox="0 0 120 14"
+                  preserveAspectRatio="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M3 9.5C28 4 62 2.5 117 6.5"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="5"
+                    strokeLinecap="round"
+                    pathLength="1"
+                    className={classes.underlinePath}
+                  />
+                </svg>
+              </span>
             </span>
           </h1>
 
@@ -84,7 +88,7 @@ export default function Hero() {
             </button>
             <button
               className={classes.secondaryButton}
-              onClick={() => scrollToSection("gallery")}
+              onClick={() => scrollToSection("o-nama")}
             >
               Pogledaj radove
               <HiArrowRight className={classes.arrow} aria-hidden="true" />

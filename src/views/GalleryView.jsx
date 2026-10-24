@@ -98,7 +98,32 @@ export default function GalleryView({ category, images, currentPage, totalPages,
     setSelectedImage(currentImages[prevIndex].original);
   };
 
-  const closeModal = () => setOpened(false);
+  // The open lightbox gets its own browser-history entry (same URL), so the
+  // phone's back button / back gesture closes the photo instead of leaving the
+  // gallery. Next.js copies its router state into entries made with pushState.
+  const openModal = (image) => {
+    setSelectedImage(image);
+    setOpened(true);
+    window.history.pushState({ lightbox: true }, "");
+  };
+
+  // Every way of closing (X, Escape, backdrop) goes back through history, which
+  // removes the entry again; the popstate listener below then hides the lightbox.
+  const closeModal = () => {
+    if (window.history.state?.lightbox) {
+      window.history.back();
+    } else {
+      setOpened(false);
+    }
+  };
+
+  // Back button / gesture (and closeModal above) land here
+  useEffect(() => {
+    if (!opened) return;
+    const onPopState = () => setOpened(false);
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, [opened]);
 
   const prevIndex = currentIndex - 1;
   const nextIndex = currentIndex + 1;
@@ -341,10 +366,7 @@ export default function GalleryView({ category, images, currentPage, totalPages,
                   <button
                     type="button"
                     className={classes.imageButton}
-                    onClick={() => {
-                      setSelectedImage(image.original);
-                      setOpened(true);
-                    }}
+                    onClick={() => openModal(image.original)}
                   >
                     <img
                       src={image.thumb}

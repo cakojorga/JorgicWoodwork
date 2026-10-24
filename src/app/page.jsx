@@ -12,7 +12,7 @@ import { pageMetadata } from "../lib/metadata";
 export const metadata = pageMetadata({
   absoluteTitle: "Jorgić Woodwork | Namještaj po mjeri, kuhinje, ormari i stolarija",
   description:
-    "Stolarija Jorgić (Jorgić Woodwork) iz Banja Luke izrađuje kuhinje, ormare, krevete, vrata, prozore, stepenice i ostalu stolariju po mjeri. Više od 30 godina iskustva.",
+    "Stolarija Jorgić iz Banja Luke: kuhinje, ormari, kreveti, vrata, prozori i stepenice po mjeri. Više od 30 godina iskustva u izradi namještaja.",
   path: "/",
 });
 
