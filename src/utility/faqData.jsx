@@ -13,7 +13,7 @@ export const faqs = [
   {
     question: "Koliko traje izrada namještaja?",
     answer:
-      "Vrijeme izrade zavisi od složenosti projekta i obima posla. U prosjeku, izrada traje od 2 do 6 sedmica, a tačan rok dogovaramo prilikom potvrde narudžbe.",
+      "Vrijeme izrade zavisi od složenosti i obima projekta, kao i od naše trenutne zauzetosti. Nakon što nas kontaktirate i dogovorimo detalje, javićemo vam okvirni rok izrade za vaš projekat.",
   },
   {
     question: "Da li nudite dostavu i montažu?",

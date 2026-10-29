@@ -9,12 +9,8 @@ import djecijaSobaKrevetNaSprat800 from "../assets/highlights/djecija-soba-kreve
 import djecijaSobaKrevetNaSprat1600 from "../assets/highlights/djecija-soba-krevet-na-sprat-1600.webp";
 import ormarLucnaVrata800 from "../assets/highlights/ormar-lucna-vrata-800.webp";
 import ormarLucnaVrata1600 from "../assets/highlights/ormar-lucna-vrata-1600.webp";
-import stepeniceHrast800 from "../assets/highlights/stepenice-hrast-800.webp";
-import stepeniceHrast1600 from "../assets/highlights/stepenice-hrast-1600.webp";
 import tvZidMermer800 from "../assets/highlights/tv-zid-mermer-800.webp";
 import tvZidMermer1600 from "../assets/highlights/tv-zid-mermer-1600.webp";
-import kliznaVrata800 from "../assets/highlights/klizna-vrata-800.webp";
-import kliznaVrata1600 from "../assets/highlights/klizna-vrata-1600.webp";
 import woodworkStaroDrvo800 from "../assets/highlights/woodwork-staro-drvo-800.webp";
 import woodworkStaroDrvo1600 from "../assets/highlights/woodwork-staro-drvo-1600.webp";
 import policaKamion800 from "../assets/highlights/polica-kamion-800.webp";
@@ -27,9 +23,7 @@ const images = {
   "bar-drvena-stabla": [barDrvenaStabla800, barDrvenaStabla1600],
   "djecija-soba-krevet-na-sprat": [djecijaSobaKrevetNaSprat800, djecijaSobaKrevetNaSprat1600],
   "ormar-lucna-vrata": [ormarLucnaVrata800, ormarLucnaVrata1600],
-  "stepenice-hrast": [stepeniceHrast800, stepeniceHrast1600],
   "tv-zid-mermer": [tvZidMermer800, tvZidMermer1600],
-  "klizna-vrata": [kliznaVrata800, kliznaVrata1600],
   "woodwork-staro-drvo": [woodworkStaroDrvo800, woodworkStaroDrvo1600],
   "polica-kamion": [policaKamion800, policaKamion1600],
   "spavaca-soba-ormari": [spavacaSobaOrmari800, spavacaSobaOrmari1600],
@@ -71,16 +65,10 @@ export const highlights = [
     "Ugradni ormar sa lučnim vratima i otvorenim policama",
   ),
   highlight(
-    "stepenice-hrast",
-    "stepenice",
-    "Hrastove stepenice sa ormarom ispod",
-  ),
-  highlight(
     "tv-zid-mermer",
     "specijalno",
     "TV zid sa mermernom oblogom i policama",
   ),
-  highlight("klizna-vrata", "vrata", "Klizna drvena vrata u rustičnom stilu"),
   highlight(
     "woodwork-staro-drvo",
     "woodwork",

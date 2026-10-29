@@ -129,6 +129,7 @@ export default function Footer() {
             className={classes.credit}
           >
             Izradio
+            Marko Jorgić
             <FaLinkedin className={classes.creditIcon} aria-hidden="true" />
           </a>
         </div>

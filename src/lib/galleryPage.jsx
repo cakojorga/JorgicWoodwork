@@ -7,6 +7,8 @@ import { SITE_NAME } from "../utility/site";
 import { getGalleryImages } from "./galleryImages";
 import { pageMetadata } from "./metadata";
 import { breadcrumbSchema, gallerySchema } from "./structuredData";
+import kliznaVrata1600 from "../assets/highlights/klizna-vrata-1600.webp";
+import stepeniceHrast1600 from "../assets/highlights/stepenice-hrast-1600.webp";
 
 // Shared by app/galerija/[slug]/page.jsx (page 1) and
 // app/galerija/[slug]/[page]/page.jsx (page 2+). Both are static and
@@ -17,11 +19,23 @@ export const IMAGES_PER_PAGE = 12;
 const pageTitle = (category, page) =>
   `${category.seoTitle}${page > 1 ? ` – strana ${page}` : ""}`;
 
-// Share image: one of the hand-picked slider photos from this category, if any
+// Categories with no photo in the slider share their "Naše usluge" card photo
+// (the 1600px version; Facebook and Viber want at least 1200px)
+const cardShareImages = {
+  vrata: { image: kliznaVrata1600, alt: "Klizna drvena vrata u rustičnom stilu" },
+  stepenice: { image: stepeniceHrast1600, alt: "Hrastove stepenice sa ormarom ispod" },
+};
+
+// Share image: one of the hand-picked slider photos from this category,
+// else its card photo, else none (the site-wide default is used)
 function shareImage(category) {
   const highlight = highlights.find((h) => h.category === category.slug);
-  if (!highlight) return undefined;
-  return { url: highlight.src, width: highlight.width, height: highlight.height, alt: highlight.alt };
+  if (highlight) {
+    return { url: highlight.src, width: highlight.width, height: highlight.height, alt: highlight.alt };
+  }
+  const card = cardShareImages[category.slug];
+  if (!card) return undefined;
+  return { url: card.image.src, width: card.image.width, height: card.image.height, alt: card.alt };
 }
 
 export const categoryParams = () => categories.map((category) => ({ slug: category.slug }));
